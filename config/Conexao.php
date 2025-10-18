@@ -10,9 +10,9 @@ Class Conexao{
 
     public static function conectar(){
         try{
-            return new PDO("mysql:host=".self::$host.";dbname=".self::$db, self::$user,self::$pass);
+            return new PDO("mysql:host=".self::$host.";dbname=".self::$dbname, self::$user,self::$pass);
         }catch(PDOException $e){
-            die ("<p> Erro ao conectar ao banco" $e->getMessage()"</p>");
+            echo 'Erro: '.$e->getMessage();
         }
     }
 }
