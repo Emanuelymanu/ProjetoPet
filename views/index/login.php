@@ -1,7 +1,7 @@
 <div class="login">
     <div class="card">
         <div class="card-header">
-            <img calss="imagem"src="img/icone.png" alt="LaryPets">
+            <img calss="imagem"src="img/icone.png" style="width:80px; height:80px;" alt="LaryPets">
         </div>
         <div class="card-body">
             <form  method="post" name="form1">

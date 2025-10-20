@@ -14,8 +14,9 @@ session_start();
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
   <link rel="icon" href="img/icone.png">
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -24,14 +25,23 @@ session_start();
   <script src="js/parsley.min.js"></script>
   <script src="js/sweetalert2.js"></script>
   <script>
-    mostrarSenha = function() {
-     const campo = document.getElementById('senha');
-     if (campo.type === 'password') {
-       campo.type = 'text';
-     } else {
-       campo.type = 'password';
-     }
+    mostrarSenha = function () {
+      const campo = document.getElementById('senha');
+      if (campo.type === 'password') {
+        campo.type = 'text';
+      } else {
+        campo.type = 'password';
+      }
     }
+    mensagem = function (msg, url, icone)
+      Swal.fire({
+      icon: "icone",
+      title: "msg",
+      confirmButtonText: "OK"
+      
+    }).then((result)=>{
+      location.href = url;
+    })
   </script>
 
 
@@ -39,12 +49,24 @@ session_start();
 
 <body>
   <?php
-  if ((!isset($_SESSION["larypets"])) && (!$_POST)) {
+  if((!isset($_SESSION["Admin"])) && (!$_POST)){
     require "../views/index/login.php";
-  } else if ((!isset($_SESSION["larypets"])) && ($_POST)) {
-    require "../views/index/login.php";
+  }else if((!isset($_SESSION["Admin"]))&& ($_POST)){
+    $email = trim($_POST["email"] ?? NULL);
+    $senha = trim($_POST["senha"] ?? NULL);
 
-  } else
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      echo "<script>mensagem('E-mail inválido!', 'index', 'error');</script>";
+    }else if(empty($senha)){
+      echo "<script>mensagem('Senha não pode ser vazia!', 'index', 'error');</script>";
+    }else{
+      require "../controllers/IndexController.php";
+      $acao = new IndexController();
+      $acao->verificacao($email, $senha);
+    }
+  }else{
+
+  }
   ?>
 
 </body>

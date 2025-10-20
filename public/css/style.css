@@ -8,14 +8,7 @@ body {
     padding: 100px 10px;
     margin: auto;
 }
-.imagem {
-    
-       width: 80px !important; /* ajuste aqui para deixar menor/maior */
-    height: auto !important;
-    max-width: 50% !important;
-    
-    margin:  auto !important;
-}
+
 
 .alert {
     margin: 0;
