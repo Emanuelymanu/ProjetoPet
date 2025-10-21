@@ -23,11 +23,11 @@ class IndexController{
         if(empty($dadosAdmin->id)){
             echo "<script>mensagem('Administrador inválido','index','error')</script>";
             exit;
-        }else if(!password_hash($senha, $dadosAdmin->senha)){
+        }else if(!password_verify($senha, $dadosAdmin->senha)){
             echo "<script>mensagem('Senha inválida','index','error')</script>";
             exit;
         }else{
-            $_SESSION["Admin"] = array(
+            $_SESSION["admin"] = array(
                 "id" => $dadosAdmin->id,
                 "nome" => $dadosAdmin->nome
             );

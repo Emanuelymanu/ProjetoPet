@@ -33,15 +33,20 @@ session_start();
         campo.type = 'password';
       }
     }
-    mensagem = function (msg, url, icone)
-      Swal.fire({
-      icon: "icone",
-      title: "msg",
-      confirmButtonText: "OK"
-      
-    }).then((result)=>{
-      location.href = url;
-    })
+     function mensagem(titulo, icone, pagina) {
+            Swal.fire({
+                title: titulo,
+                icon: icone, //error, ok, success, question
+            }).then((result) => {
+                
+                if (icone == "error") {
+                    history.back();
+                } else {
+                    location.href = pagina;
+                }
+
+            });
+        }
   </script>
 
 
@@ -49,24 +54,47 @@ session_start();
 
 <body>
   <?php
-  if((!isset($_SESSION["Admin"])) && (!$_POST)){
-    require "../views/index/login.php";
-  }else if((!isset($_SESSION["Admin"]))&& ($_POST)){
+  if((!isset($_SESSION["admin"])) && (!$_POST)){
+    require "../views/login/index.php";
+  }else if((!isset($_SESSION["admin"]))&& ($_POST)){
     $email = trim($_POST["email"] ?? NULL);
     $senha = trim($_POST["senha"] ?? NULL);
+    
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       echo "<script>mensagem('E-mail inválido!', 'index', 'error');</script>";
     }else if(empty($senha)){
-      echo "<script>mensagem('Senha não pode ser vazia!', 'index', 'error');</script>";
+      echo "<script>mensagem('Senha invalida!', 'index', 'error');</script>";
     }else{
       require "../controllers/IndexController.php";
       $acao = new IndexController();
       $acao->verificacao($email, $senha);
     }
   }else{
+    require "painel.php";
 
+    
   }
+  if (isset($_GET["param"])) {
+            $param = explode("/", $_GET["param"]);
+        }
+
+        $controller = $param[0] ?? "index";
+        $view = $param[1] ?? "index";
+        $id = $param[2] ?? NULL;
+
+       
+        
+
+       
+        if (file_exists("../controllers/{$controller}.php")) {
+            require "../controllers/{$controller}.php";
+
+            $control = new $controller();
+
+        } else {
+            //require "../views/erro.php";
+        }
   ?>
 
 </body>
