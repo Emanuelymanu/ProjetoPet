@@ -9,12 +9,6 @@ body {
     margin: auto;
 }
 
-
-.alert {
-    margin: 0;
-    padding: 0 10px;
-}
-
 .card {
     box-shadow: 0 0 10px #CCC;
     border-radius: 0;
@@ -25,28 +19,8 @@ body {
     }
 }
 
-.form-control, .btn {
-    border-radius: 0;
-}
-
-.form-control[readonly] {
-    background: #f1f1f1;
-}
-
-.parsley-errors-list {
-    color: #F00;
-    list-style: none;
-    margin-left: -30px;
-}
-
 #erro {
     margin-top: -15px;
-}
-
-.footer, .navbar {
-    background: #FFF;
-    padding: 10px 0 10px;
-    box-shadow: 0 0 10px #ccc;
 }
 
 label {

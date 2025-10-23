@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel Administrativo Lary Pets</title>
+  <title>Planet Pet</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/all.min.css">
   <link rel="stylesheet" href="css/sweetalert2.min.css">
@@ -33,20 +33,20 @@ session_start();
         campo.type = 'password';
       }
     }
-     function mensagem(titulo, icone, pagina) {
-            Swal.fire({
-                title: titulo,
-                icon: icone, //error, ok, success, question
-            }).then((result) => {
-                
-                if (icone == "error") {
-                    history.back();
-                } else {
-                    location.href = pagina;
-                }
+    function mensagem(titulo, icone, pagina) {
+      Swal.fire({
+        title: titulo,
+        icon: icone, //error, ok, success, question
+      }).then((result) => {
 
-            });
+        if (icone == "error") {
+          history.back();
+        } else {
+          location.href = pagina;
         }
+
+      });
+    }
   </script>
 
 
@@ -54,47 +54,8 @@ session_start();
 
 <body>
   <?php
-  if((!isset($_SESSION["admin"])) && (!$_POST)){
-    require "../views/login/index.php";
-  }else if((!isset($_SESSION["admin"]))&& ($_POST)){
-    $email = trim($_POST["email"] ?? NULL);
-    $senha = trim($_POST["senha"] ?? NULL);
-    
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo "<script>mensagem('E-mail inválido!', 'index', 'error');</script>";
-    }else if(empty($senha)){
-      echo "<script>mensagem('Senha invalida!', 'index', 'error');</script>";
-    }else{
-      require "../controllers/IndexController.php";
-      $acao = new IndexController();
-      $acao->verificacao($email, $senha);
-    }
-  }else{
-    require "painel.php";
-
-    
-  }
-  if (isset($_GET["param"])) {
-            $param = explode("/", $_GET["param"]);
-        }
-
-        $controller = $param[0] ?? "index";
-        $view = $param[1] ?? "index";
-        $id = $param[2] ?? NULL;
-
-       
-        
-
-       
-        if (file_exists("../controllers/{$controller}.php")) {
-            require "../controllers/{$controller}.php";
-
-            $control = new $controller();
-
-        } else {
-            //require "../views/erro.php";
-        }
+  require '../views/cadastro/index.php';
   ?>
 
 </body>
