@@ -28,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
                 <div id="erro"></div>
                 <br>
-                <input type="hidden" name="cadastrar" value="1">
+                <input type="hidden" name="action" value="cadastrar">
                 <button type="submit" class="btn btn-success w-100">
                     <i class="fas fa-check">Cadastrar</i>
                 </button>

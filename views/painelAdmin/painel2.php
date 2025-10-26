@@ -37,33 +37,42 @@
                 <!-- Conteúdo Dinâmico -->
                 <div class="container-fluid">
                     <?php
-                    $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+                    $pageParam = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+                    $pageFile = '';
 
-                    switch ($page) {
+                    switch ($pageParam) {
                         case 'dashboard':
-                            require '../views/dashboard/index.php';
+                            $pageFile = '../views/dashboard/index.php';
                             break;
-                        case 'categoria':
-                            require '../views/categoria/index.php';
+                        case 'categorias':
+                            $pageFile = '../views/categoria/index.php';
                             break;
                         case 'produtos':
-                            require '../views/produtos/index.php';
+                            $pageFile = '../views/produtos/index.php';
                             break;
                         case 'pedidos':
-                            require '../views/pedidos/index.php';
+                            $pageFile = '../views/pedidos/index.php';
                             break;
                         case 'usuarios':
-                            require '../views/usuarios/index.php';
+                            $pageFile = '../views/usuarios/index.php';
                             break;
                         case 'estoque':
-                            require '../views/estoque/index.php';
+                            $pageFile = '../views/estoque/index.php';
                             break;
                         default:
-                            require '../views/dashboard/index.php';
+                            $pageFile = '../views/dashboard/index.php';
                             break;
                     }
+
+                    if (file_exists($pageFile)) {
+                        require $pageFile;
+                    } else {
+                        echo "Página não encontrada!";
+                    }
+                   
                     ?>
                 </div>
+                
             </main>
         </div>
     </div>

@@ -31,6 +31,16 @@ class Admin{
 
         return $consulta->fetch(PDO::FETCH_OBJ);
     }
+
+    public function verificarLogin($email, $senha){
+        $sql = "select id, nome, email, senha from administrador where email = :email and senha = :senha";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->bindParam(":email", $email);
+        $consulta->bindParam(":senha", $senha);
+        $consulta->execute();
+
+        return $consulta->fetch(PDO::FETCH_OBJ);
+    }
    
 
     public function listarAdmins($email){

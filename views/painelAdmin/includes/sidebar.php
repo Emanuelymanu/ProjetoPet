@@ -25,9 +25,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?page=categoria">
+                <a class="nav-link" href="?page=categorias">
                     <i class="bi bi-list-task"></i>
-                    Categoria
+                    Categorias
                 </a>
             </li>
               <li class="nav-item">

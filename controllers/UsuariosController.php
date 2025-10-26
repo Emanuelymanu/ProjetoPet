@@ -43,7 +43,7 @@ class UsuariosController
             echo "<script>mensagem('Acesso negado! Faça login para continuar.','../view/login/index.php','error')</script>";
             exit;
         } else {
-            echo "<script>mensagem('Bem-vindo!','../public/painel.php','success')</script>";
+            echo "<script>mensagem('Bem-vindo!','../views/painelAdmin/painel2.php','success')</script>";
         }
     }
 
@@ -76,6 +76,25 @@ class UsuariosController
                 return ['status' => 'error', 'message' => 'Erro ao cadastrar usuário'];
             }
 
+        } catch (Exception $e) {
+            return ['status' => 'error', 'message' => 'Erro interno: ' . $e->getMessage()];
+        }
+    }
+
+    public function verificarLogin($email, $senha)
+    {
+        try {
+            $dadosAdmin = $this->admin->verificarLogin($email, $senha);
+
+            if (empty($dadosAdmin->id)) {
+                return ['status' => 'error', 'message' => 'Administrador inválido'];
+            } else {
+                $_SESSION["admin"] = array(
+                    "id" => $dadosAdmin->id,
+                    "nome" => $dadosAdmin->nome
+                );
+                return ['status' => 'success', 'message' => 'Login realizado com sucesso'];
+            }
         } catch (Exception $e) {
             return ['status' => 'error', 'message' => 'Erro interno: ' . $e->getMessage()];
         }

@@ -4,7 +4,7 @@
             <img calss="imagem" src="img/icone.png" style="width:80px; height:80px;" alt="LaryPets">
         </div>
         <div class="card-body">
-            <form method="post" name="form1" data-parsley-validate>
+            <form method="POST" name="form2" data-parsley-validate>
                 <label for="email">E-mail:</label>
                 <input type="email" name="email" class="form-control" placeholder="Digite seu E-mail" required
                     data-parsley-required-message="Preencha este campo"
@@ -22,6 +22,7 @@
                 </div>
                 <div id="erro"></div>
                 <br>
+                <input type="hidden" name="action" value="login">
                 <button type="submit" class="btn btn-success w-100">
                     <i class="fas fa-check"> Fazer Login</i>
                 </button>
