@@ -3,7 +3,7 @@
 require "../config/Conexao.php";
 require "../models/Admin.php";
 
-class UsuariosController
+class IndexController
 {
     private $admin;
 
@@ -69,7 +69,7 @@ class UsuariosController
             }
 
             $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);
-            
+
             if ($this->admin->cadastrarUsuario($_POST['email'], $senhaHash)) {
                 return ['status' => 'success', 'message' => 'Usuário cadastrado com sucesso'];
             } else {
@@ -81,7 +81,7 @@ class UsuariosController
         }
     }
 
-    public function verificarLogin($email, $senha)
+    /*public function verificarLogin($email, $senha)
     {
         try {
             $dadosAdmin = $this->admin->verificarLogin($email, $senha);
@@ -98,6 +98,48 @@ class UsuariosController
         } catch (Exception $e) {
             return ['status' => 'error', 'message' => 'Erro interno: ' . $e->getMessage()];
         }
+    }*/
+    public function index()
+    {
+
+    }
+
+    public function verificar($dados)
+    {
+
+        $email = $dados["email"] ?? NULL;
+        $senha = $dados["senha"] ?? NULL;
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<script>mensagem('Digite um e-mail válido','error','')</script>";
+            exit;
+        } else if (empty($senha)) {
+            echo "<script>mensagem('Senha inválida','error','')</script>";
+            exit;
+        }
+
+        $dadosAdmin = $this->admin->getEmailAdmin($email, $senha);
+
+
+        if (empty($dadosAdmin->id)) {
+            echo "<script>mensagem('Usuário inválido','error','')</script>";
+            exit;
+        } else if (!password_verify($senha, $dadosAdmin->senha)) {
+
+
+            echo "<script>
+            mensagem('Senha inválida','error','')
+            </script>";
+            exit;
+        } else {
+            $_SESSION["admin"] = array(
+                "id" => $dadosAdmin->id,
+                "nome" => $dadosAdmin->nome
+            );
+            echo "<script>location.href='index.php'</script>";
+        }
+
+
     }
 
 }

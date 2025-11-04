@@ -8,14 +8,14 @@
                 <a href="categoria" class="btn btn-info">
                     Novo Registro
                 </a>
-                <a href="categoria/listar" class="btn btn-info">
+                <a href="views/categoria/listar" class="btn btn-info">
                     Listar Registros
                 </a>
             </div>
         </div>
         
         <div class="card-body">
-            <form name="formCadastro" method="POST" 
+            <form  method="POST" 
             data-parsley-validate>
                 <div class="row">
                     <div class="col-12 col-md-2">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <br>
-                <input type="hidden" name="action" value="salvar">
+                
                 <button type="submit" class="btn btn-success">
                     Enviar Dados
                 </button>

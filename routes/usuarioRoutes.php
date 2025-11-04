@@ -1,20 +1,15 @@
 <?php
 session_start();
-
-require '../controllers/usuariosController.php';
-
-$CadastroControll = new UsuariosController();
-$validarLogin = new UsuariosController();
-
-
+require '../controllers/IndexController.php';
+$CadastroControll = new IndexController();
+$validarLogin = new IndexController();
 if (isset($_POST['action']) && $_POST['action'] === 'cadastrar') {
     $result = $CadastroControll->cadastrarNovoUsuario();
     header('location: ../views/painelAdmin/painel2.php');
     exit;
 }
-
-if (isset($_POST['action']) && $_POST['action'] === 'login'){
-    $result= $validarLogin->verificarLogin();
-    header();('location: ../views/painelAdmin/painel2.php');
+/*if (isset($_POST['action']) && $_POST['action'] === 'login') {
+    $result = $validarLogin->verificar($_POST);
+    header('location: ../views/painelAdmin/painel2.php');
     exit;
-}
+}*/

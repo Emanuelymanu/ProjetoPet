@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -69,10 +75,10 @@
                     } else {
                         echo "Página não encontrada!";
                     }
-                   
+
                     ?>
                 </div>
-                
+
             </main>
         </div>
     </div>
