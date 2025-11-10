@@ -14,11 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i>
-                        <?php echo $_SESSION['admin']['nome'] ?? 'Admin'; ?>
-                    </a>
+                  
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>

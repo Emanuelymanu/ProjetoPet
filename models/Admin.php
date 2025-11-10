@@ -8,6 +8,16 @@ class Admin
         $this->pdo = $pdo;
     }
 
+     public function getEmailAdmin($email)
+    {
+        $sql = "select * from administrador where email = :email";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->bindParam(":email", $email);
+        $consulta->execute();
+
+        return $consulta->fetch(PDO::FETCH_OBJ);
+    }
+
     public function cadastrarUsuario($email, $senha)
     {
         try {
@@ -25,18 +35,9 @@ class Admin
             return false;
         }
     }
-    public function getEmailAdmin($email, $senha)
-    {
-        $sql = "select * from administrador where email = :email";
-        $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":email", $email);
-        // $consulta->bindParam(":senha", $senha);
-        $consulta->execute();
+   
 
-        return $consulta->fetch(PDO::FETCH_OBJ);
-    }
-
-    public function verificarLogin($email, $senha)
+    /*public function verificarLogin($email, $senha)
     {
         $sql = "select id, nome, email, senha from administrador where email = :email and senha = :senha";
         $consulta = $this->pdo->prepare($sql);
@@ -45,7 +46,7 @@ class Admin
         $consulta->execute();
 
         return $consulta->fetch(PDO::FETCH_OBJ);
-    }
+    }*/
 
 
     public function listarAdmins($email)

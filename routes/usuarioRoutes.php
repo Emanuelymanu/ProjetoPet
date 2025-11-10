@@ -8,8 +8,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'cadastrar') {
     header('location: ../views/painelAdmin/painel2.php');
     exit;
 }
-/*if (isset($_POST['action']) && $_POST['action'] === 'login') {
-    $result = $validarLogin->verificar($_POST);
-    header('location: ../views/painelAdmin/painel2.php');
+if (isset($_POST['action']) && $_POST['action'] === 'login') {
+    $validarLogin->verificar($_POST);
+    header('location: ../public/painel2.php');
     exit;
-}*/
+}

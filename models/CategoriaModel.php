@@ -1,6 +1,7 @@
 <?php
 
-Class CategoriaModel{
+class CategoriaModel
+{
     private $pdo;
 
     public function __construct($pdo)
@@ -9,31 +10,35 @@ Class CategoriaModel{
     }
 
 
-    public function cadastrarSalvar($dados){
-        if(empty($dados["id"])){
+    public function salvar($dados)
+    {
+        if (empty($dados["id"])) {
             $sql = "INSERT INTO categoria (nome, ativo) VALUES (:nome, :ativo)";
             $consulta = $this->pdo->prepare($sql);
             $consulta->bindParam(":nome", $dados["nome"]);
             $consulta->bindParam(":ativo", $dados["ativo"]);
-            return $consulta->execute();
-        }else{
+
+        } else {
             $sql = "UPDATE categoria SET nome = :nome, ativo = :ativo WHERE id = :id";
-        $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id", $dados["id"]);
-        $consulta->bindParam(":nome", $dados["nome"]);
-        $consulta->bindParam(":ativo", $dados["ativo"]);
-        return $consulta->execute();
+            $consulta = $this->pdo->prepare($sql);
+            $consulta->bindParam(":id", $dados["id"]);
+            $consulta->bindParam(":nome", $dados["nome"]);
+            $consulta->bindParam(":ativo", $dados["ativo"]);
+
         }
+        return $consulta->execute();
     }
 
-    public function excluirCategoria($id){
+    public function excluirCategoria($id)
+    {
         $sql = "DELETE FROM categoria WHERE id = :id";
         $consulta = $this->pdo->prepare($sql);
         $consulta->bindParam(":id", $id);
         return $consulta->execute();
     }
 
-    public function listarCategorias(){
+    public function listarCategorias()
+    {
         $sql = "SELECT id, nome, ativo FROM categoria ORDER BY nome ASC";
         $consulta = $this->pdo->prepare($sql);
         $consulta->execute();

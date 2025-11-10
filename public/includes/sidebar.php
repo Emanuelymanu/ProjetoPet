@@ -2,7 +2,7 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="painel.php">
+                <a class="nav-link active" href="dashboard">
                     <i class="bi bi-speedometer2"></i>
                     Dashboard
                 </a>
@@ -18,7 +18,7 @@
                     <i class="bi bi-box-seam"></i>
                     Produtos
                 </a>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="?page=pedidos">
                     <i class="bi bi-basket3"></i>
                     Pedidos
@@ -30,36 +30,27 @@
                     Categorias
                 </a>
             </li>
-              <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="?page=estoque">
                     <i class="bi bi-boxes"></i>
                     Estoque
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="painel.php?pagina=configuracoes">
+                <a class="nav-link" href="?page=configuracoes">
                     <i class="bi bi-gear"></i>
                     Configurações
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?page=sair">
+                    <i class="bi bi-door-closed"></i>
+                    Sair
+                </a>
+            </li>
+
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Relatórios</span>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-graph-up"></i>
-                    Vendas
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-file-earmark-text"></i>
-                    Relatórios
-                </a>
-            </li>
-        </ul>
+        
     </div>
 </nav>
