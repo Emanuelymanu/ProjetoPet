@@ -15,16 +15,18 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo</title>
-    <!-- Bootstrap 5 CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link href="css/style.css" rel="stylesheet">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planet Pet</title>
-    
+    <title>Império Animal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/sweetalert2.min.css">
@@ -58,6 +60,205 @@ if (!isset($_SESSION['admin'])) {
             });
         }
     </script>
+    <style>
+        /* ===== TEMA CLARO (PADRÃO) ===== */
+        body[data-theme="light"] {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        body[data-theme="light"] .navbar {
+            background-color: #343a40 !important;
+        }
+
+        body[data-theme="light"] .sidebar {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        body[data-theme="light"] .sidebar .nav-link {
+            color: #333;
+        }
+
+        body[data-theme="light"] .sidebar .nav-link:hover,
+        body[data-theme="light"] .sidebar .nav-link.active {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        body[data-theme="light"] .card {
+            background-color: #fff;
+            color: #333;
+            border-color: #dee2e6;
+        }
+
+        body[data-theme="light"] .card-header {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #333;
+        }
+
+        body[data-theme="light"] .card-body {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body[data-theme="light"] .alert-light {
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+            color: #333;
+        }
+
+        body[data-theme="light"] .form-control,
+        body[data-theme="light"] .form-select {
+            background-color: #fff;
+            color: #333;
+            border-color: #dee2e6;
+        }
+
+        body[data-theme="light"] .table {
+            color: #333;
+        }
+
+        body[data-theme="light"] .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        body[data-theme="light"] .footer {
+            background-color: #343a40 !important;
+            color: #fff;
+        }
+
+        body[data-theme="light"] .form-label {
+            color: #6c757d;
+        }
+
+        /* ===== TEMA ESCURO ===== */
+        body[data-theme="dark"] {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .navbar {
+            background-color: #0d1117 !important;
+            border-bottom: 1px solid #444;
+        }
+
+        body[data-theme="dark"] .sidebar {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-right: 1px solid #444;
+        }
+
+        body[data-theme="dark"] .sidebar .nav-link {
+            color: #b0b0b0;
+        }
+
+        body[data-theme="dark"] .sidebar .nav-link:hover,
+        body[data-theme="dark"] .sidebar .nav-link.active {
+            background-color: rgba(0, 123, 255, 0.15);
+            color: #64b5f6;
+        }
+
+        body[data-theme="dark"] .card {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body[data-theme="dark"] .card-header {
+            background-color: #1e3a5f;
+            border-color: #444;
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .card-body {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .alert-light {
+            background-color: #3a3a3a !important;
+            border-color: #555 !important;
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .form-control,
+        body[data-theme="dark"] .form-select {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        body[data-theme="dark"] .form-control:focus,
+        body[data-theme="dark"] .form-select:focus {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #64b5f6;
+            box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+        }
+
+        body[data-theme="dark"] .table {
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body[data-theme="dark"] .table-dark {
+            background-color: #1e3a5f;
+            color: #e0e0e0;
+        }
+
+        body[data-theme="dark"] .table-dark thead th {
+            background-color: #1e3a5f;
+            border-color: #444;
+        }
+
+        body[data-theme="dark"] .footer {
+            background-color: #0d1117 !important;
+            color: #e0e0e0;
+            border-top: 1px solid #444;
+        }
+
+        body[data-theme="dark"] .form-label {
+            color: #b0b0b0;
+        }
+
+        body[data-theme="dark"] .btn-outline-secondary {
+            color: #e0e0e0;
+            border-color: #666;
+        }
+
+        body[data-theme="dark"] .btn-outline-secondary:hover {
+            background-color: #444;
+            border-color: #888;
+        }
+
+        body[data-theme="dark"] .text-muted {
+            color: #999 !important;
+        }
+
+        body[data-theme="dark"] hr {
+            border-color: #555;
+        }
+
+        body[data-theme="dark"] .border-bottom {
+            border-color: #444 !important;
+        }
+
+        /* Transições suaves */
+        body,
+        .card,
+        .sidebar,
+        .navbar,
+        .form-control,
+        .form-select,
+        .alert {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
 
 
 </head>
@@ -86,48 +287,14 @@ if (!isset($_SESSION['admin'])) {
                 <!-- Conteúdo Dinâmico -->
                 <div class="container-fluid">
                     <?php
-                    $pageParam = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-                    $pageFile = '';
+                    $routes = require '../routes/routes.php';
+                    $page = $_GET['page'] ?? 'dashboard';
 
-                    switch ($pageParam) {
-                        case 'dashboard':
-                            $pageFile = '../views/dashboard/index.php';
-                            break;
-                        case 'categorias':
-                            $pageFile = '../views/categoria/index.php';
-                            break;
-                        case 'produtos':
-                            $pageFile = '../views/produtos/index.php';
-                            break;
-                        case 'pedidos':
-                            $pageFile = '../views/pedidos/index.php';
-                            break;
-                        case 'usuarios':
-                            $pageFile = '../views/usuarios/index.php';
-                            break;
-                        case 'estoque':
-                            $pageFile = '../views/estoque/index.php';
-                            break;
-                        case 'sair':
-                            $pageFile = 'sair.php';
-                            break;
-                            case 'listar':
-                            $pageFile = '../views/produtos/listar.php';
-                            break;
-                            case 'salvar':
-                            $pageFile = '../views/produtos/salvar.php';
-                            break;
-                        default:
-                            $pageFile = '../views/dashboard/index.php';
-                            break;
-                    }
-
-                    if (file_exists($pageFile)) {
-                        require $pageFile;
+                    if (isset($routes[$page]) && file_exists($routes[$page])) {
+                        include $routes[$page];
                     } else {
-                        echo "Página não encontrada!";
+                        include '../views/erro.php';
                     }
-
 
                     ?>
                 </div>
@@ -231,5 +398,40 @@ if (!isset($_SESSION['admin'])) {
         margin-top: auto;
     }
 </style>
+<script>
+    // Inicializa o tema ao carregar a página
+    document.addEventListener('DOMContentLoaded', function () {
+        const theme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', theme);
+        updateThemeButton(theme);
+    });
+
+    // Toggle do tema
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function () {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+    }
+
+    // Atualiza o ícone do botão
+    function updateThemeButton(theme) {
+        const btn = document.getElementById('themeToggle');
+        if (btn) {
+            if (theme === 'dark') {
+                btn.innerHTML = '<i class="bi bi-sun"></i>';
+                btn.title = 'Ativar modo claro';
+            } else {
+                btn.innerHTML = '<i class="bi bi-moon-stars"></i>';
+                btn.title = 'Ativar modo escuro';
+            }
+        }
+    }
+</script>
 
 </html>

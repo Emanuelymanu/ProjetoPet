@@ -59,6 +59,8 @@ class Admin
         return $consulta->fetchAll(PDO::FETCH_OBJ);
     }
 
+    
+
     /* public function novoAdmin($nome, $email, $senha){
          $sql = "insert into administrador (nome, email, senha) values (:nome, :email, :senha)";
          $consulta = $this->pdo->prepare($sql);

@@ -13,14 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="float-start">
                 <h2>Cadastro de Categorias</h2>
             </div>
-            <div class="float-end">
-                <a href="categoria/listar.php" class="btn btn-info">
-                    Novo Registro
-                </a>
-                <a href="Categoria/listar" class="btn btn-info">
-                    Listar Registros
-                </a>
-            </div>
+          
         </div>
 
         <div class="card-body">
@@ -50,6 +43,11 @@ if (session_status() === PHP_SESSION_NONE) {
                 <button type="submit" class="btn btn-success">
                     Enviar Dados
                 </button>
+                  <div class="float-end">
+                <a href="categoria/listar.php" class="btn btn-outline-primary">
+                    Listar Registros
+                </a>
+            </div>
             </form>
         </div>
 

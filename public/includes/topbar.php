@@ -14,7 +14,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                  
+                   <li class="nav-item">
+                    <button class="btn btn-outline-light ms-2" id="themeToggle" type="button" title="Alternar tema">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                </li>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>

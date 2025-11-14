@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        $dadosCategoria = $this->categoria->listar();
+                        $dadosCategoria = $this->categoriaModel->listar();
                         foreach($dadosCategoria as $dados){
 
                                 if($dados->ativo == "S"){

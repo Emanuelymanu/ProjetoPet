@@ -1,5 +1,8 @@
 <?php
+ob_start();               
 if (!isset($_SESSION)) {
-session_start();}
+    
+}
 unset($_SESSION["admin"]);
-header ("Location: ../views/login/index.php");
+header("Location: index.php");
+exit;

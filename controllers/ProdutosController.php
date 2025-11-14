@@ -16,9 +16,15 @@ class ProdutosController{
         require __DIR__ ."/../views/produtos/salvar.php";
     }
 
-    public function listar(){}
+    public function listar(){
+        return $this->produtoModel->listarProdutos();
+    }
 
-    public function editar($id){}
+    public function editar($id){
+        return $this->produtoModel->editarProdutos($id);
+    }
 
-    public function deletar($id){}
+    public function deletar($id){
+        return $this->produtoModel->deletarProdutos($id);
+    }
 }
