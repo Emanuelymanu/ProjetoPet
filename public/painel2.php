@@ -6,6 +6,7 @@ if (!isset($_SESSION['admin'])) {
     header('Location: ../views/login/index.php');
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
