@@ -1,0 +1,28 @@
+body {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.login {
+    width: 380px;
+    padding: 100px 10px;
+    margin: auto;
+}
+
+.card {
+    box-shadow: 0 0 10px #CCC;
+    border-radius: 0;
+    margin: 30px 0;
+
+    .card-header {
+        border-bottom: 1px solid #CCC;
+    }
+}
+
+#erro {
+    margin-top: -15px;
+}
+
+label {
+    margin-top: 15px;
+}
