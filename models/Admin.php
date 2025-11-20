@@ -10,7 +10,7 @@ class Admin
 
      public function getEmailAdmin($email)
     {
-        $sql = "select * from administrador where email = :email";
+        $sql = "select * from usuario where email = :email";
         $consulta = $this->pdo->prepare($sql);
         $consulta->bindParam(":email", $email);
         $consulta->execute();
@@ -21,7 +21,7 @@ class Admin
     public function cadastrarUsuario($email, $senha)
     {
         try {
-            $sql = "INSERT INTO administrador (email, senha) VALUES (:email, :senha)";
+            $sql = "INSERT INTO usuario (email, senha) VALUES (:email, :senha)";
             $consulta = $this->pdo->prepare($sql);
             $consulta->bindParam(":email", $email);
             $consulta->bindParam(":senha", $senha);
@@ -51,7 +51,7 @@ class Admin
 
     public function listarAdmins($email)
     {
-        $sql = "select id, nome, email from administrador";
+        $sql = "select id, nome, email from usuario";
         $consulta = $this->pdo->prepare($sql);
         $consulta->bindParam(":email", $email);
         $consulta->execute();
@@ -74,7 +74,7 @@ class Admin
 
     public function removerAdmin($id)
     {
-        $sql = "delete from administrador where id = :id";
+        $sql = "delete from usuario where id = :id";
         $consulta = $this->pdo->prepare($sql);
         $consulta->bindParam(":id", $id);
         $consulta->execute();

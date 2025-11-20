@@ -5,11 +5,16 @@ $CadastroControll = new IndexController();
 $validarLogin = new IndexController();
 if (isset($_POST['action']) && $_POST['action'] === 'cadastrar') {
     $result = $CadastroControll->cadastrarNovoUsuario();
-    header('location: ../views/painelAdmin/painel2.php');
+    header('location: ../painel2.php');
     exit;
 }
 if (isset($_POST['action']) && $_POST['action'] === 'login') {
-    $validarLogin->verificar($_POST);
-    header('location: ../public/painel2.php');
+    if ($validarLogin->verificar($_POST)) {
+        
+        header('location: ../public/painel2.php');
+    } else {
+        header('location: ../public/index.php');
+        
+    }
     exit;
 }

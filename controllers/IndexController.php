@@ -34,21 +34,19 @@ class IndexController
         //  $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);  
 
         if (empty($dadosAdmin->id)) {
-            echo "<script>mensagem('Usuário inválido','error','')</script>";
-            exit;
+            
+            return false;
         } else if (!password_verify($senha, $dadosAdmin->senha)) {
-
-
-            echo "<script>
-            mensagem('Senha inválida','error','')
-            </script>";
-            exit;
+            
+            return false;
         } else {
+            
             $_SESSION["admin"] = array(
                 "id" => $dadosAdmin->id,
-                "nome" => $dadosAdmin->nome
+                "nome" => $dadosAdmin->nome,
+                "email" => $dadosAdmin->email
             );
-            echo "<script>location.href='index.php'</script>";
+            return true;
         }
     }
 

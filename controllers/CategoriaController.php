@@ -46,4 +46,20 @@ class CategoriaController
         return $this->categoria->listarCategorias();
     }
 
+    public function excluir()
+    {
+        $id = trim($_GET["id"] ?? NULL);
+        if (empty($id)) {
+            echo "<script>mensagem('ID inválido','error','');</script>";
+            exit;
+        }
+
+        if ($this->categoria->excluirCategoria($id)) {
+            echo "<script>mensagem('Registro excluído','ok','');</script>";
+        } else {
+            echo "<script>mensagem('Erro ao excluir registro','error','');</script>";
+        }
+        exit;
+    }
+
 }
