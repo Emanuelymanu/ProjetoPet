@@ -32,7 +32,7 @@ if (!isset($_SESSION['admin'])) {
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <link rel="icon" href="img/icone.png">
-    <!-- Nossos arquivos CSS -->
+   
     <link href="css/painel.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
 
@@ -42,6 +42,7 @@ if (!isset($_SESSION['admin'])) {
     <script src="js/jquery.maskedinput-1.2.1.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/sweetalert2.js"></script>
+
     <script>
 
         function mensagem(titulo, icone, pagina) {
@@ -65,6 +66,17 @@ if (!isset($_SESSION['admin'])) {
 
 
 <body class="d-flex flex-column min-vh-100">
+    <script>
+        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        } else {
+            
+            document.body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    </script>
 
     <!-- Topbar -->
     <?php include 'includes/topbar.php'; ?>

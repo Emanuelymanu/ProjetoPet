@@ -1,118 +1,247 @@
 <?php
-// carrega o controller usando caminho baseado em __DIR__
 require_once __DIR__ . '/../../controllers/CategoriaController.php';
-$categoriaController = new CategoriaController();
-$dadosCategoria = $categoriaController->listar();
-?>
+require_once __DIR__ . '/../../controllers/ProdutoController.php';
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+$categoriaController = new CategoriaController();
+$produtoController = new ProdutoController();
+
+
+$dadosCategoria = $categoriaController->listar();
+$dadosProdutos = $produtoController->listar();
+?>
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <div class="float-start">
-                <h2>Cadastro de Produtos</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <i class="bi bi-box-seam" style="font-size: 4rem;"></i>
+                    <h2 class="mt-3 mb-0">Gerenciamento de Produtos</h2>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="mb-4 border-bottom pb-2">Cadastro de Produto</h3>
+                    <form action="../routes/produtoRoutes.php" method="POST" data-parsley-validate
+                        enctype="multipart/form-data" name="formproduto" id="form-produto">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="action" value="salvar">
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="nome" class="form-label fw-bold">Nome do Produto</label>
+                                <input type="text" name="nome" id="nome" class="form-control" required
+                                    data-parsley-required-message="Preencha o nome do produto.">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="id_categoria" class="form-label fw-bold">Categoria</label>
+                                <select name="id_categoria" id="id_categoria" required class="form-select"
+                                    data-parsley-required-message="Selecione uma categoria.">
+                                    <option value="">Selecione...</option>
+                                    <?php
+                                    if (!empty($dadosCategoria) && is_iterable($dadosCategoria)) {
+                                        foreach ($dadosCategoria as $dados) {
+                                            $id = htmlspecialchars($dados->id ?? $dados['id'], ENT_QUOTES);
+                                            $nome = htmlspecialchars($dados->nome ?? $dados['nome'], ENT_QUOTES);
+                                            echo "<option value='{$id}'>{$nome}</option>";
+                                        }
+                                    } else {
+                                        echo "<option value='' disabled>Nenhuma categoria cadastrada</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label fw-bold">Descrição do Produto</label>
+                            <textarea name="descricao" id="descricao" class="form-control" required
+                                data-parsley-required-message="Preencha a descrição do produto."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="imagens" class="form-label fw-bold">Imagem do Produto (JPG)</label>
+                                <input type="file" name="imagens" id="imagens" class="form-control" accept=".jpg">
+                                <input type="hidden" name="imagem_atual" id="imagem_atual">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="valor" class="form-label fw-bold">Valor</label>
+                                <input type="text" name="valor" id="valor" class="form-control" required
+                                    data-parsley-required-message="Preencha o valor do produto.">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="destaque" class="form-label fw-bold">Destaque</label>
+                                <select name="destaque" id="destaque" required class="form-select"
+                                    data-parsley-required-message="Selecione uma opção.">
+                                    <option value="">Selecione...</option>
+                                    <option value="S">Sim</option>
+                                    <option value="N">Não</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ativo" class="form-label fw-bold">Status</label>
+                                <select name="ativo" id="ativo" required class="form-select"
+                                    data-parsley-required-message="Selecione o status.">
+                                    <option value="">Selecione...</option>
+                                    <option value="S">Ativo</option>
+                                    <option value="N">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="/ProjetoPet/public/painel.php?page=produtos" class="btn btn-primary">
+                                <i class="bi bi-list-ul"></i> Ver Produtos
+                            </a>
+                            <button type="button" class="btn btn-outline-secondary" onclick="limparFormulario()">
+                                <i class="bi bi-plus-circle"></i> Novo Cadastro
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-lg"></i> Salvar Produto
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-5">
+
+
+                    <h3 class="mb-4 border-bottom pb-2">Produtos Cadastrados</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-center">Imagem</th>
+                                    <th>ID</th>
+                                    <th>Nome do Produto</th>
+                                    <th>Categoria</th>
+                                    <th>Valor</th>
+                                    <th>Destaque</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($dadosProdutos)): ?>
+                                    <?php foreach ($dadosProdutos as $produto): ?>
+                                        <tr>
+                                            <td class="text-center">
+                                                <?php if (!empty($produto->imagem)): ?>
+                                                    <img src="../public/img/produtos/<?= htmlspecialchars($produto->imagem) ?>"
+                                                        alt="<?= htmlspecialchars($produto->nome) ?>" width="50"
+                                                        class="img-thumbnail">
+                                                <?php else: ?>
+                                                    <img src="../public/img/produtos/sem-imagem.jpg" alt="Sem Imagem" width="50"
+                                                        class="img-thumbnail">
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?= htmlspecialchars($produto->id) ?></td>
+                                            <td><?= htmlspecialchars($produto->nome) ?></td>
+                                            <td><?= htmlspecialchars($produto->nome_categoria ?? 'N/A') ?></td>
+                                            <td>R$ <?= htmlspecialchars(number_format($produto->valor, 2, ',', '.')) ?></td>
+                                            <td><?= $produto->destaque == 'S' ? '<span class="badge bg-info">Sim</span>' : '<span class="badge bg-secondary">Não</span>' ?>
+                                            </td>
+                                            <td><?= $produto->ativo == 'S' ? '<span class="badge bg-success">Ativo</span>' : '<span class="badge bg-danger">Inativo</span>' ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-primary btn-sm" title="Editar"
+                                                    onclick='editarProduto(<?= json_encode($produto, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <a href="javascript:void(0)" onclick="excluirProduto(<?= $produto->id ?>)"
+                                                    class="btn btn-danger btn-sm" title="Excluir">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="8" class="text-center">Nenhum produto cadastrado.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
-        </div>
-
-        <div class="card-body">
-            <form action="/ProjetoPet/public/painel2.php?page=salvar" method="POST" data-parsley-validate
-                enctype="multipart/form-data" name="formproduto">
-                <div class="row">
-                    <div class="col-12 col-md-1">
-                        <label for="id">ID</label>
-                        <input type="text" name="id" id="id" class="form-control" readonly>
-                    </div>
-                    <div class="col-12 col-md-8">
-                        <label for="nome">Nome do Produto</label>
-                        <input type="text" name="nome" id="nome" class="form-control" required
-                            data-parsley-required-message="Preencha este campo">
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <label for="id_categoria">Categoria:</label>
-                        <select name="id_categoria" id="id_categoria" required class="form-control"
-                            data-parsley-required-message="Selecione">
-                            <option value="">Selecione</option>
-                            <?php
-                            if (!empty($dadosCategoria) && is_iterable($dadosCategoria)) {
-                                foreach ($dadosCategoria as $dados) {
-                                    $id = htmlspecialchars($dados->id ?? $dados['id'], ENT_QUOTES);
-                                    $nome = htmlspecialchars($dados->nome ?? $dados['nome'], ENT_QUOTES);
-                                    echo "<option value='{$id}'>{$nome}</option>";
-                                }
-                            } else {
-                                echo "<option value=''>Nenhuma categoria cadastrada</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-md--12">
-                        <label for="descricao">Descrição do Produto</label>
-                        <textarea name="descricao" id="descricao" class="form-control" required
-                            data-parsley-required-message="Preencha este campo"></textarea>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <label for="imagns">Selecione um arquivo JPG</label>
-                        <input type="file" name="imagens" id="imagens" class="form-control" accept=".jpg">
-                        <input type="hidden" name="imagens" >
-                    </div>
-                    <div class="col-12 col-md-2">
-                        <label for="valor">Valor:</label>
-                        <input type="valor" name="valor" id="valor" class="form-control" required
-                            data-parsley-required-message="Preencha este campo">
-                    </div>
-                    <div class="col-12 col-md-2">
-                        <label for="destaque">Destaque:</label>
-                        <select name="destaque" id="destaque" required class="form-control"
-                            data-parsley-required-message="Selecione uma opção">
-                            <option value="">Selecione </option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-2">
-                        <label for="ativo">Ativo:</label>
-                        <select name="ativo" id="ativo" required class="form-control"
-                            data-parsley-required-message="Selecione uma opção">
-                            <option value="">Selecione</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <button type="submit" class="btn btn-success">
-                    
-                    <i class="bi bi-check-lg"></i>
-                    Salvar
-                </button>
-                <div class="float-end">
-                    <a href="/ProjetoPet/public/painel2.php?page=listar" class="btn btn-outline-primary">Listar Cadastros</a>
-                </div>
-
-            </form>
         </div>
     </div>
 </div>
 
 <script>
+
+    function editarProduto(produto) {
+
+        document.getElementById('id').value = produto.id;
+        document.getElementById('nome').value = produto.nome;
+        document.getElementById('id_categoria').value = produto.id_categoria;
+        $('#descricao').summernote('code', produto.descricao);
+        $('#valor').val(produto.valor).maskMoney('mask');
+        document.getElementById('destaque').value = produto.destaque;
+        document.getElementById('ativo').value = produto.ativo;
+        document.getElementById('imagem_atual').value = produto.imagem;
+
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+
+    function excluirProduto(id) {
+        Swal.fire({
+            title: "Deseja realmente excluir este produto?",
+            text: "Esta ação não pode ser desfeita e removerá o produto permanentemente.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                location.href = `../routes/produtoRoutes.php?action=excluir&id=${id}`;
+            }
+        });
+    }
+
     $(document).ready(function () {
         $("#descricao").summernote({
-            height: 200
+            height: 200,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']]
+            ]
         });
 
-    })
+        $('#valor').maskMoney({
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            allowZero: true
+        });
+    });
 
-    $("#valor").maskMoney({ thousands: '.', decimal: ',' });
+    function limparFormulario() {
+        document.getElementById('form-produto').reset();
+        document.getElementById('id').value = '';
+        document.getElementById('imagem_atual').value = '';
+        $('#descricao').summernote('code', '');
+        $('#valor').maskMoney('destroy').maskMoney({
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            allowZero: true
+        });
+    }
+
 </script>

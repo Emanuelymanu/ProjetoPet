@@ -56,7 +56,7 @@
     </div>
 </nav>
 <style>
-    /* Dark mode específico para sidebar */
+    
     body[data-theme="dark"] .sidebar {
         background-color: #1e1e1e !important;
         color: #e0e0e0 !important;

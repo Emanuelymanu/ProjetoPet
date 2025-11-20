@@ -16,7 +16,7 @@ class CategoriaController
         $this->categoria = new CategoriaModel($pdo);
     }
 
-  
+
     public function salvar()
     {
         $nome = trim($_POST["nome"] ?? NULL);
@@ -33,7 +33,7 @@ class CategoriaController
         $msg = $this->categoria->salvar($_POST);
 
         if ($msg == 1) {
-            echo "<script>mensagem('Registro Salvo','ok','');</script>";
+            header("Location: ../public/painel2.php?page=categorias&status=success");
             exit;
         } else {
             echo "<script>mensagem('Erro ao Salvar','error','')</script>";
@@ -55,7 +55,8 @@ class CategoriaController
         }
 
         if ($this->categoria->excluirCategoria($id)) {
-            echo "<script>mensagem('Registro excluído','ok','');</script>";
+             header("Location: ../public/painel2.php?page=categorias&status=success");
+            exit;
         } else {
             echo "<script>mensagem('Erro ao excluir registro','error','');</script>";
         }

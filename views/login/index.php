@@ -22,8 +22,9 @@
                 </div>
                 <div id="erro"></div>
                 <br>
-                <input type="hidden" name="action" value="login">
+                
                 <button type="submit" class="btn btn-success w-100">
+                    <input type="hidden" name="action" value="login">
                     Fazer Login
                 </button>
             </form>

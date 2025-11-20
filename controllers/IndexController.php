@@ -1,18 +1,18 @@
 <?php
 
 require "../config/Conexao.php";
-require "../models/Admin.php";
+require "../models/UsuarioModel.php";
 
 class IndexController
 {
-    private $admin;
+    private $usuario;
 
     public function __construct()
     {
         $conexao = new Conexao();
         $pdo = $conexao->conectar();
 
-        $this->admin = new Admin($pdo);
+        $this->usuario = new UsuarioModel($pdo);
     }
 
     public function verificar($dados)
@@ -20,6 +20,7 @@ class IndexController
 
         $email = $dados["email"] ?? NULL;
         $senha = $dados["senha"] ?? NULL;
+
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo "<script>mensagem('E-mail inválido','error','')</script>";
@@ -29,18 +30,18 @@ class IndexController
             exit;
         }
 
-        $dadosAdmin = $this->admin->getEmailAdmin($email);
+        $dadosAdmin = $this->usuario->getEmailAdmin($email);
 
         //  $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);  
 
-        if (empty($dadosAdmin->id)) {
-            
+
+        if (empty($dadosAdmin->id_usuario)) {
             return false;
         } else if (!password_verify($senha, $dadosAdmin->senha)) {
-            
             return false;
         } else {
-            
+
+
             $_SESSION["admin"] = array(
                 "id" => $dadosAdmin->id,
                 "nome" => $dadosAdmin->nome,
@@ -69,13 +70,13 @@ class IndexController
             }
 
 
-            if ($this->admin->getEmailAdmin($_POST['email'])) {
+            if ($this->usuario->getEmailAdmin($_POST['email'])) {
                 return ['status' => 'error', 'message' => 'Este email já está cadastrado'];
             }
 
             $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);
 
-            if ($this->admin->cadastrarUsuario($_POST['email'], $senhaHash)) {
+            if ($this->usuario->cadastrarUsuario($_POST['email'], $senhaHash)) {
                 return ['status' => 'success', 'message' => 'Usuário cadastrado com sucesso'];
             } else {
                 return ['status' => 'error', 'message' => 'Erro ao cadastrar usuário'];
@@ -85,14 +86,6 @@ class IndexController
             return ['status' => 'error', 'message' => 'Erro interno: ' . $e->getMessage()];
         }
     }
-
-
-    public function index()
-    {
-
-    }
-
-
 
 
 

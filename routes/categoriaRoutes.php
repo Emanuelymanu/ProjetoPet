@@ -4,8 +4,15 @@ require "../controllers/CategoriaController.php";
 
 $categoriaController = new CategoriaController();
 
+
 if (isset($_POST["action"]) && $_POST["action"] == "salvar") {
     $categoriaController->salvar();
-    header("Location: ../public/painel2.php");
+   
+    
+}
+
+
+if (isset($_GET["action"]) && $_GET["action"] == "excluir") {
+    $categoriaController->excluir();
     exit;
 }

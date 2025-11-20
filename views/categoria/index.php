@@ -47,6 +47,7 @@ $dadosCategoria = $categoriaController->listar();
                                 <i class="bi bi-plus-circle"></i> Novo Cadastro
                             </button>
                             <button type="submit" class="btn btn-success">
+                                <input type="hidden" name="action" value="salvar">
                                 <i class="bi bi-check-lg"></i> Salvar Categoria
                             </button>
                         </div>
@@ -54,7 +55,7 @@ $dadosCategoria = $categoriaController->listar();
 
                     <hr class="my-5">
 
-                    <!-- Tabela de Listagem -->
+                    
                     <h3 class="mb-4 border-bottom pb-2">Categorias Cadastradas</h3>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
