@@ -88,7 +88,7 @@ class IndexController
             $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);
 
             if ($this->usuario->cadastrarUsuario($_POST['email'], $senhaHash)) {
-                return ['status' => 'success', 'message' => 'Usuário cadastrado com sucesso'];
+                  header('location: ../public/painel2.php');
             } else {
                 return ['status' => 'error', 'message' => 'Erro ao cadastrar usuário'];
             }

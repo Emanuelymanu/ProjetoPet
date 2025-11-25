@@ -19,7 +19,7 @@ $dadosCategoria = $categoriaController->listar();
                 </div>
 
                 <div class="card-body p-4 p-md-5">
-                    <!-- Formulário de Cadastro/Edição -->
+                    
                     <h3 class="mb-4 border-bottom pb-2">Cadastro</h3>
                     <form method="POST" action="../routes/categoriaRoutes.php" id="form-categoria" data-parsley-validate>
                         <input type="hidden" name="id" id="id">
@@ -70,8 +70,8 @@ $dadosCategoria = $categoriaController->listar();
                             <tbody>
                                 <?php foreach ($dadosCategoria as $categoria): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($categoria->id) ?></td>
-                                        <td><?= htmlspecialchars($categoria->nome) ?></td>
+                                        <td><?= htmlspecialchars($categoria->id_categoria) ?></td>
+                                        <td><?= htmlspecialchars($categoria->nome_categoria) ?></td>
                                         <td>
                                             <?php if ($categoria->ativo == 'S'): ?>
                                                 <span class="badge bg-success">Ativo</span>
@@ -84,7 +84,7 @@ $dadosCategoria = $categoriaController->listar();
                                                 onclick="editarCategoria(<?= htmlspecialchars(json_encode($categoria), ENT_QUOTES, 'UTF-8') ?>)">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-                                            <a href="javascript:excluir(<?= $categoria->id ?>)" class="btn btn-danger btn-sm" title="Excluir">
+                                            <a href="javascript:excluir(<?= $categoria->id_categoria ?>)" class="btn btn-danger btn-sm" title="Excluir">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>

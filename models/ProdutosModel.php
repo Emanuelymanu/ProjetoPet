@@ -50,10 +50,11 @@ class ProdutoModel
 
     public function listarProdutos()
     {
-        // Usamos LEFT JOIN para trazer o nome da categoria junto com os dados do produto
-        $sql = "SELECT p.*, c.nome as nome_categoria 
-                FROM produto p 
-                LEFT JOIN categoria c ON p.id_categoria = c.id ORDER BY p.id DESC";
+        
+        $sql = "SELECT p.*, c.nome_categoria as nome_categoria 
+           FROM produto p 
+           LEFT JOIN categoria c ON p.id_categoria = c.id_categoria 
+           ORDER BY p.id_categoria DESC";
         $consulta = $this->pdo->prepare($sql);
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_OBJ);

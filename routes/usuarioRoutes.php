@@ -8,8 +8,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'cadastrar') {
 
 
     $result = $CadastroControll->cadastrarNovoUsuario();
-    header('location: ../painel2.php');
-    exit;
+  
+   
 }
 if (isset($_POST['action']) && $_POST['action'] === 'login') {
 
