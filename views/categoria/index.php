@@ -23,7 +23,7 @@ $dadosCategoria = $categoriaController->listar();
                     <h3 class="mb-4 border-bottom pb-2">Cadastro</h3>
                     <form method="POST" action="../routes/categoriaRoutes.php" id="form-categoria"
                         data-parsley-validate>
-                        <input name="id_categoria" id="id">
+                        <input type="hidden" name="id_categoria" id="id">
                         <input type="hidden" name="action" value="salvar">
 
                         <div class="row">
@@ -37,7 +37,7 @@ $dadosCategoria = $categoriaController->listar();
                             
                             <div class="col-md-4 mb-3">
                                 <label for="ativo" class="form-label fw-bold">Status</label>
-                                <select name="ativo" id="ativo" cla ss="form-select" required
+                                <select name="ativo" id="ativo" class="form-select" required
                                     data-parsley-required-message="Selecione o status.">
                                     <option value="">Selecione...</option>
                                     <option value="S">Ativo</option>

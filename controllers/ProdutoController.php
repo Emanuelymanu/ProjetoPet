@@ -23,7 +23,7 @@ class ProdutoController
         $arquivo = $_FILES['imagens'] ?? null;
 
        
-        if (empty($dados['nome']) || empty($dados['id_categoria']) || empty($dados['valor'])) {
+        if (empty($dados['nome_produto']) || empty($dados['id_categoria']) || empty($dados['valor'])) {
             
             header("Location: ../public/painel2.php?page=produtos&status=error&message=Campos obrigatórios não preenchidos.");
             exit;

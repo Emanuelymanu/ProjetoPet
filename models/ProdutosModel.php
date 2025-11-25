@@ -12,10 +12,10 @@ class ProdutoModel
     public function salvar($dados)
     {
         if (empty($dados["id"])) {
-            $sql = "INSERT INTO produto (nome, id_categoria, descricao, imagem, valor, destaque, ativo) 
-                VALUES (:nome, :id_categoria, :descricao, :imagem, :valor, :destaque, :ativo)";
+            $sql = "INSERT INTO produto (nome_produto, id_categoria, descricao, imagem, valor, destaque, ativo) 
+                VALUES (:nome_produto, :id_categoria, :descricao, :imagem, :valor, :destaque, :ativo)";
             $consulta = $this->pdo->prepare($sql);
-            $consulta->bindParam(":nome", $dados["nome"]);
+            $consulta->bindParam(":nome_produto", $dados["nome_produto"]);
             $consulta->bindParam(":id_categoria", $dados["id_categoria"]);
             $consulta->bindParam(":descricao", $dados["descricao"]);
             $consulta->bindParam(":imagem", $dados["imagens"]);
@@ -24,17 +24,17 @@ class ProdutoModel
             $consulta->bindParam(":ativo", $dados["ativo"]);
         } else {
 
-            $sql = "UPDATE produto SET nome = :nome, id_categoria = :id_categoria, descricao = :descricao, valor = :valor, destaque = :destaque, ativo = :ativo";
+            $sql = "UPDATE produto SET nome = :nome_produto, id_categoria = :id_categoria, descricao = :descricao, valor = :valor, destaque = :destaque, ativo = :ativo";
 
             if (!empty($dados["imagens"])) {
                 $sql .= ", imagem = :imagem";
             }
 
-            $sql .= " WHERE id = :id";
+            $sql .= " WHERE id_produto = :id_produto";
 
             $consulta = $this->pdo->prepare($sql);
-            $consulta->bindParam(":id", $dados["id"]);
-            $consulta->bindParam(":nome", $dados["nome"]);
+            $consulta->bindParam(":id", $dados["id_produto"]);
+            $consulta->bindParam(":nome", $dados["nome_produto"]);
             $consulta->bindParam(":id_categoria", $dados["id_categoria"]);
             $consulta->bindParam(":descricao", $dados["descricao"]);
             if (!empty($dados["imagens"])) {
@@ -51,10 +51,10 @@ class ProdutoModel
     public function listarProdutos()
     {
         
-        $sql = "SELECT p.*, c.nome_categoria as nome_categoria 
+        $sql = "SELECT p.*, c.nome_categoria AS nome_categoria 
            FROM produto p 
            LEFT JOIN categoria c ON p.id_categoria = c.id_categoria 
-           ORDER BY p.id_categoria DESC";
+           ORDER BY p.id_categoria ASC";
         $consulta = $this->pdo->prepare($sql);
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_OBJ);
