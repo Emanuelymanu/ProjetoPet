@@ -7,8 +7,8 @@ $categoriaController = new CategoriaController();
 
 if (isset($_POST["action"]) && $_POST["action"] == "salvar") {
     $categoriaController->salvar();
-   
-    
+
+
 }
 
 

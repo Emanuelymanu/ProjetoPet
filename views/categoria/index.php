@@ -19,21 +19,25 @@ $dadosCategoria = $categoriaController->listar();
                 </div>
 
                 <div class="card-body p-4 p-md-5">
-                    
+
                     <h3 class="mb-4 border-bottom pb-2">Cadastro</h3>
-                    <form method="POST" action="../routes/categoriaRoutes.php" id="form-categoria" data-parsley-validate>
-                        <input type="hidden" name="id" id="id">
+                    <form method="POST" action="../routes/categoriaRoutes.php" id="form-categoria"
+                        data-parsley-validate>
+                        <input name="id_categoria" id="id">
                         <input type="hidden" name="action" value="salvar">
 
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="nome" class="form-label fw-bold">Nome da Categoria</label>
-                                <input type="text" name="nome" id="nome" class="form-control" required
+                                <input type="text" name="nome_categoria" id="nome" class="form-control" required
                                     data-parsley-required-message="Preencha o nome da categoria.">
+
                             </div>
+                            
+                            
                             <div class="col-md-4 mb-3">
                                 <label for="ativo" class="form-label fw-bold">Status</label>
-                                <select name="ativo" id="ativo" class="form-select" required
+                                <select name="ativo" id="ativo" cla ss="form-select" required
                                     data-parsley-required-message="Selecione o status.">
                                     <option value="">Selecione...</option>
                                     <option value="S">Ativo</option>
@@ -55,7 +59,7 @@ $dadosCategoria = $categoriaController->listar();
 
                     <hr class="my-5">
 
-                    
+
                     <h3 class="mb-4 border-bottom pb-2">Categorias Cadastradas</h3>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
@@ -84,7 +88,8 @@ $dadosCategoria = $categoriaController->listar();
                                                 onclick="editarCategoria(<?= htmlspecialchars(json_encode($categoria), ENT_QUOTES, 'UTF-8') ?>)">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-                                            <a href="javascript:excluir(<?= $categoria->id_categoria ?>)" class="btn btn-danger btn-sm" title="Excluir">
+                                            <a href="javascript:excluir(<?= $categoria->id_categoria ?>)"
+                                                class="btn btn-danger btn-sm" title="Excluir">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
@@ -101,8 +106,8 @@ $dadosCategoria = $categoriaController->listar();
 
 <script>
     function editarCategoria(categoria) {
-        document.getElementById('id').value = categoria.id;
-        document.getElementById('nome').value = categoria.nome;
+        document.getElementById('id').value = categoria.id_categoria;
+        document.getElementById('nome').value = categoria.nome_categoria;
         document.getElementById('ativo').value = categoria.ativo;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }

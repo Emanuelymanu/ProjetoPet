@@ -12,6 +12,7 @@ class CategoriaModel
 
     public function salvar($dados)
     {
+        
         if (empty($dados["id_categoria"])) {
             $sql = "INSERT INTO categoria (nome_categoria, ativo) VALUES (:nome_categoria, :ativo)";
             $consulta = $this->pdo->prepare($sql);
@@ -19,10 +20,10 @@ class CategoriaModel
             $consulta->bindParam(":ativo", $dados["ativo"]);
 
         } else {
-            $sql = "UPDATE categoria SET nome = :nome, ativo = :ativo WHERE id = :id";
+            $sql = "UPDATE categoria SET nome_categoria = :nome_categoria, ativo = :ativo WHERE id_categoria = :id_categoria";
             $consulta = $this->pdo->prepare($sql);
-            $consulta->bindParam(":id", $dados["id_categoria"]);
-            $consulta->bindParam(":nome", $dados["nome"]);
+            $consulta->bindParam(":id_categoria", $dados["id_categoria"]);
+            $consulta->bindParam(":nome_categoria", $dados["nome_categoria"]);
             $consulta->bindParam(":ativo", $dados["ativo"]);
 
         }

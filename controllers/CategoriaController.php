@@ -19,7 +19,7 @@ class CategoriaController
 
     public function salvar()
     {
-        $nome = trim($_POST["nome"] ?? NULL);
+        $nome = trim($_POST["nome_categoria"] ?? NULL);
         $ativo = trim($_POST["ativo"] ?? NULL);
 
         if (empty($nome)) {
