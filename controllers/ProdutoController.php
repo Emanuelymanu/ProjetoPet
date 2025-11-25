@@ -86,12 +86,12 @@ class ProdutoController
     {
         $id = trim($_GET["id"] ?? NULL);
         if (empty($id)) {
-            // Idealmente, redirecionar com mensagem de erro
+            
             header("Location: ../public/painel2.php?page=produtos&status=error&message=ID inválido.");
             exit;
         }
 
-        // Futuramente, podemos adicionar a lógica para apagar a imagem do produto do servidor aqui.
+        
 
         if ($this->produtoModel->excluirProduto($id)) {
             header("Location: ../public/painel2.php?page=produtos&status=success_delete");

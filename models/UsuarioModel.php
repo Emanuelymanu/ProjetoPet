@@ -18,11 +18,12 @@ class UsuarioModel
         return $consulta->fetch(PDO::FETCH_OBJ);
     }
 
-    public function cadastrarUsuario($email, $senha)
+    public function cadastrarUsuario($nome, $email, $senha)
     {
         try {
-            $sql = "INSERT INTO usuario (email, senha) VALUES (:email, :senha)";
+            $sql = "INSERT INTO usuario (nome, email, senha) VALUES (:nome, :email, :senha)";
             $consulta = $this->pdo->prepare($sql);
+            $consulta->bindParam(":nome", $nome);
             $consulta->bindParam(":email", $email);
             $consulta->bindParam(":senha", $senha);
             return $consulta->execute();

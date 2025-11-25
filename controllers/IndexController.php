@@ -34,21 +34,32 @@ class IndexController
 
         //  $senhaHash = password_hash($_POST['senha'], PASSWORD_BCRYPT);  
 
-
         if (empty($dadosAdmin->id_usuario)) {
-            return false;
+        return ['login' => false];
         } else if (!password_verify($senha, $dadosAdmin->senha)) {
-            return false;
-        } else {
-
-
-            $_SESSION["admin"] = array(
-                "id" => $dadosAdmin->id,
+        return ['login' => false];
+    } else {
+        
+        if (isset($dadosAdmin->tipo) && $dadosAdmin->tipo == 'admin') {
+          
+            $_SESSION["admin"] = [
+                "id" => $dadosAdmin->id_usuario,
                 "nome" => $dadosAdmin->nome,
-                "email" => $dadosAdmin->email
-            );
-            return true;
+                "email" => $dadosAdmin->email,
+                "tipo" => $dadosAdmin->tipo
+            ];
+            return ['login' => true, 'tipo' => 'admin'];
+        } else {
+           
+            $_SESSION["cliente"] = [
+                "id" => $dadosAdmin->id_usuario,
+                "nome" => $dadosAdmin->nome,
+                "email" => $dadosAdmin->email,
+                "tipo" => $dadosAdmin->tipo ?? 'cliente'
+            ];
+            return ['login' => true, 'tipo' => 'cliente'];
         }
+    }
     }
 
 

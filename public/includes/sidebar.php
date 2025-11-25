@@ -24,12 +24,12 @@
                     <i class="bi bi-list-task"></i>
                     Categorias
                 </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="?page=pedidos">
                     <i class="bi bi-basket3"></i>
                     Pedidos
                 </a>
-            </li>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?page=estoque">
@@ -56,7 +56,6 @@
     </div>
 </nav>
 <style>
-    
     body[data-theme="dark"] .sidebar {
         background-color: #1e1e1e !important;
         color: #e0e0e0 !important;

@@ -78,15 +78,15 @@ if (!isset($_SESSION['admin'])) {
         }
     </script>
 
-    <!-- Topbar -->
+    
     <?php include 'includes/topbar.php'; ?>
 
     <div class="container-fluid flex-grow-1">
         <div class="row">
-            <!-- Sidebar -->
+           
             <?php include 'includes/sidebar.php'; ?>
 
-            <!-- Conteúdo Principal -->
+            
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -96,7 +96,7 @@ if (!isset($_SESSION['admin'])) {
                     </div>
                 </div>
 
-                <!-- Conteúdo Dinâmico -->
+                
                 <div class="container-fluid">
                     <?php
                     $routes = require '../routes/routes.php';
@@ -115,13 +115,13 @@ if (!isset($_SESSION['admin'])) {
         </div>
     </div>
 
-    <!-- Footer -->
+    
     <?php include 'includes/footer.php'; ?>
 
-    <!-- Bootstrap 5 JS -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
-    <!-- Nosso script de tema -->
+  
     <script src="js/theme.js"></script>
 </body>
 

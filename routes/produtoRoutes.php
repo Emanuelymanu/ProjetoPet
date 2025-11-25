@@ -8,7 +8,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "salvar") {
     exit;
 }
 
-// Rota para excluir um produto
+
 if (isset($_GET["action"]) && $_GET["action"] == "excluir") {
     $produtoController->excluir();
     exit;

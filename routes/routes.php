@@ -8,5 +8,6 @@ return [
     'pedidos' => '../views/pedidos/index.php',
     'estoque' => '..views/estoque/index.php',
     'perfil' => '../views/perfilAdmin/index.php',
+    'sair' => '../logout.php',
     
 ];
