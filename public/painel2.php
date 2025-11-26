@@ -5,7 +5,26 @@ if (session_status() === PHP_SESSION_NONE) {
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
     exit();
+
 }
+
+function saudacaoPeloHorario() {
+    // Define o fuso horário para garantir que a hora seja correta
+    // Ajuste 'America/Sao_Paulo' para o seu fuso horário, se necessário
+    date_default_timezone_set('America/Sao_Paulo'); 
+    
+    // Obtém a hora atual (00 a 23)
+    $hora = (int)date('H'); 
+
+    if ($hora >= 5 && $hora < 12) {
+        return "Bom Dia";
+    } elseif ($hora >= 12 && $hora < 18) {
+        return "Boa Tarde";
+    } else {
+        return "Boa Noite";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +109,7 @@ if (!isset($_SESSION['admin'])) {
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1>Bem-Vindo, <?php echo $_SESSION["admin"]["nome"]; ?>!</h1>
+                    <h1>Olá, <?php echo $_SESSION["admin"]["nome"]; ?>!</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
 
                     </div>

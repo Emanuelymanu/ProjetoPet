@@ -11,9 +11,9 @@ class ProdutoModel
 
     public function salvar($dados)
     {
-        if (empty($dados["id"])) {
-            $sql = "INSERT INTO produto (nome_produto, id_categoria, descricao, imagem, valor, destaque, ativo) 
-                VALUES (:nome_produto, :id_categoria, :descricao, :imagem, :valor, :destaque, :ativo)";
+        if (empty($dados["id_produto"])) {
+            $sql = "INSERT INTO produto (nome_produto, id_categoria, descricao, imagem, valor, destaque) 
+                VALUES (:nome_produto, :id_categoria, :descricao, :imagem, :valor, :destaque )";
             $consulta = $this->pdo->prepare($sql);
             $consulta->bindParam(":nome_produto", $dados["nome_produto"]);
             $consulta->bindParam(":id_categoria", $dados["id_categoria"]);
@@ -21,10 +21,10 @@ class ProdutoModel
             $consulta->bindParam(":imagem", $dados["imagens"]);
             $consulta->bindParam(":valor", $dados["valor"]);
             $consulta->bindParam(":destaque", $dados["destaque"]);
-            $consulta->bindParam(":ativo", $dados["ativo"]);
+            
         } else {
 
-            $sql = "UPDATE produto SET nome = :nome_produto, id_categoria = :id_categoria, descricao = :descricao, valor = :valor, destaque = :destaque, ativo = :ativo";
+            $sql = "UPDATE produto SET nome = :nome_produto, id_categoria = :id_categoria, descricao = :descricao, valor = :valor, destaque = :destaque";
 
             if (!empty($dados["imagens"])) {
                 $sql .= ", imagem = :imagem";
@@ -33,8 +33,8 @@ class ProdutoModel
             $sql .= " WHERE id_produto = :id_produto";
 
             $consulta = $this->pdo->prepare($sql);
-            $consulta->bindParam(":id", $dados["id_produto"]);
-            $consulta->bindParam(":nome", $dados["nome_produto"]);
+            $consulta->bindParam(":id_produto", $dados["id_produto"]);
+            $consulta->bindParam(":nome_produto", $dados["nome_produto"]);
             $consulta->bindParam(":id_categoria", $dados["id_categoria"]);
             $consulta->bindParam(":descricao", $dados["descricao"]);
             if (!empty($dados["imagens"])) {
@@ -42,7 +42,7 @@ class ProdutoModel
             }
             $consulta->bindParam(":valor", $dados["valor"]);
             $consulta->bindParam(":destaque", $dados["destaque"]);
-            $consulta->bindParam(":ativo", $dados["ativo"]);
+            
 
         }
         return $consulta->execute();
@@ -62,18 +62,18 @@ class ProdutoModel
 
     public function editarProdutos($id)
     {
-        $sql = "SELECT * FROM produto WHERE id = :id";
+        $sql = "SELECT * FROM produto WHERE id_produto = :id_produto";
         $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id", $id);
+        $consulta->bindParam(":id_produto", $id);
         $consulta->execute();
         return $consulta->fetch(PDO::FETCH_OBJ);
     }
 
     public function excluirProduto($id)
     {
-        $sql = "DELETE FROM produto WHERE id = :id";
+        $sql = "DELETE FROM produto WHERE id_produto = :id_produto";
         $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id", $id);
+        $consulta->bindParam(":id_produto", $id);
         return $consulta->execute();
     }
 }

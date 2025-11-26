@@ -44,8 +44,8 @@ $dadosProdutos = $produtoController->listar();
                                     <?php
                                     if (!empty($dadosCategoria) && is_iterable($dadosCategoria)) {
                                         foreach ($dadosCategoria as $dados) {
-                                            $id = htmlspecialchars($dados->id ?? $dados['id'], ENT_QUOTES);
-                                            $nome = htmlspecialchars($dados->nome ?? $dados['nome'], ENT_QUOTES);
+                                            $id = htmlspecialchars($dados->id_categoria ?? $dados['id_categoria'], ENT_QUOTES);
+                                            $nome = htmlspecialchars($dados->nome_categoria ?? $dados['nome_categoria'], ENT_QUOTES);
                                             echo "<option value='{$id}'>{$nome}</option>";
                                         }
                                     } else {
@@ -85,21 +85,11 @@ $dadosProdutos = $produtoController->listar();
                                     <option value="N">Não</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="ativo" class="form-label fw-bold">Status</label>
-                                <select name="ativo" id="ativo" required class="form-select"
-                                    data-parsley-required-message="Selecione o status.">
-                                    <option value="">Selecione...</option>
-                                    <option value="S">Ativo</option>
-                                    <option value="N">Inativo</option>
-                                </select>
-                            </div>
+                            
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <a href="/ProjetoPet/public/painel.php?page=produtos" class="btn btn-primary">
-                                <i class="bi bi-list-ul"></i> Ver Produtos
-                            </a>
+                            
                             <button type="button" class="btn btn-outline-secondary" onclick="limparFormulario()">
                                 <i class="bi bi-plus-circle"></i> Novo Cadastro
                             </button>
@@ -123,7 +113,6 @@ $dadosProdutos = $produtoController->listar();
                                     <th>Categoria</th>
                                     <th>Valor</th>
                                     <th>Destaque</th>
-                                    <th>Status</th>
                                     <th class="text-center">Ações</th>
                                 </tr>
                             </thead>
@@ -141,20 +130,19 @@ $dadosProdutos = $produtoController->listar();
                                                         class="img-thumbnail">
                                                 <?php endif; ?>
                                             </td>
-                                            <td><?= htmlspecialchars($produto->id) ?></td>
-                                            <td><?= htmlspecialchars($produto->nome) ?></td>
+                                            <td><?= htmlspecialchars($produto->id_produto) ?></td>
+                                            <td><?= htmlspecialchars($produto->nome_produto) ?></td>
                                             <td><?= htmlspecialchars($produto->nome_categoria ?? 'N/A') ?></td>
-                                            <td>R$ <?= htmlspecialchars(number_format($produto->valor, 2, ',', '.')) ?></td>
+                                            <td>R$ <?= htmlspecialchars(number_format($produto->preco, 2, ',', '.')) ?></td>
                                             <td><?= $produto->destaque == 'S' ? '<span class="badge bg-info">Sim</span>' : '<span class="badge bg-secondary">Não</span>' ?>
                                             </td>
-                                            <td><?= $produto->ativo == 'S' ? '<span class="badge bg-success">Ativo</span>' : '<span class="badge bg-danger">Inativo</span>' ?>
                                             </td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary btn-sm" title="Editar"
                                                     onclick='editarProduto(<?= json_encode($produto, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <a href="javascript:void(0)" onclick="excluirProduto(<?= $produto->id ?>)"
+                                                <a href="javascript:void(0)" onclick="excluirProduto(<?= $produto->id_produto ?>)"
                                                     class="btn btn-danger btn-sm" title="Excluir">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
@@ -179,13 +167,12 @@ $dadosProdutos = $produtoController->listar();
 
     function editarProduto(produto) {
 
-        document.getElementById('id').value = produto.id;
-        document.getElementById('nome').value = produto.nome;
+        document.getElementById('id').value = produto.id_produto;
+        document.getElementById('nome').value = produto.nome_produto;
         document.getElementById('id_categoria').value = produto.id_categoria;
         $('#descricao').summernote('code', produto.descricao);
-        $('#valor').val(produto.valor).maskMoney('mask');
+        $('#preco').val(produto.valor).maskMoney('mask');
         document.getElementById('destaque').value = produto.destaque;
-        document.getElementById('ativo').value = produto.ativo;
         document.getElementById('imagem_atual').value = produto.imagem;
 
 
@@ -223,7 +210,7 @@ $dadosProdutos = $produtoController->listar();
             ]
         });
 
-        $('#valor').maskMoney({
+        $('#preco').maskMoney({
             prefix: 'R$ ',
             thousands: '.',
             decimal: ',',
@@ -236,7 +223,7 @@ $dadosProdutos = $produtoController->listar();
         document.getElementById('id').value = '';
         document.getElementById('imagem_atual').value = '';
         $('#descricao').summernote('code', '');
-        $('#valor').maskMoney('destroy').maskMoney({
+        $('#preco').maskMoney('destroy').maskMoney({
             prefix: 'R$ ',
             thousands: '.',
             decimal: ',',

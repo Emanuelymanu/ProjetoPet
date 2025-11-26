@@ -50,11 +50,21 @@ class UsuarioModel
     }*/
 
 
-    public function listarAdmins($email)
+    public function listarAdmins()
     {
-        $sql = "select id, nome, email from usuario";
+        $sql = "select id_usuario, nome, email from usuario where tipo = 'admin'";
         $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":email", $email);
+        
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function listarClientes()
+    {
+        $sql = "select id_usuario, nome, email from usuario where tipo = 'cliente'";
+        $consulta = $this->pdo->prepare($sql);
+       
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_OBJ);
