@@ -70,7 +70,7 @@ $dadosProdutos = $produtoController->listar();
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="valor" class="form-label fw-bold">Valor</label>
-                                <input type="text" name="valor" id="valor" class="form-control" required
+                                <input type="text" name="valor" id="preco" class="form-control" required
                                     data-parsley-required-message="Preencha o valor do produto.">
                             </div>
                         </div>

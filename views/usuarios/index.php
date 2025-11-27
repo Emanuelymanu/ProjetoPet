@@ -25,7 +25,7 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
 
                 <div class="card-body p-4 p-md-5">
 
-                   
+
 
                     <hr class="my-5">
 
@@ -48,14 +48,12 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
                                             <td><?= htmlspecialchars($usuario->nome) ?></td>
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary btn-sm" title="Editar"
-                                                    onclick="editarUsuario(<?= htmlspecialchars(json_encode($usuario), ENT_QUOTES, 'UTF-8') ?>)">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </button>
-                                                <a href="javascript:excluirUsuario(<?= $usuario->id_usuario ?>)"
-                                                    class="btn btn-danger btn-sm" title="Excluir">
-                                                    <i class="bi bi-trash"></i>
+                                                
+                                                <a href="javascript:mudarTipoUsuario(<?= $usuario->id_usuario ?>, 'cliente')"
+                                                    class="btn btn-warning btn-sm" title="Tornar Cliente">
+                                                    <i class="bi bi-person-down"></i>
                                                 </a>
+                                                
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -89,14 +87,12 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
                                             <td><?= htmlspecialchars($usuario->nome) ?></td>
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary btn-sm" title="Editar"
-                                                    onclick="editarUsuario(<?= htmlspecialchars(json_encode($usuario), ENT_QUOTES, 'UTF-8') ?>)">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </button>
-                                                <a href="javascript:excluirUsuario(<?= $usuario->id_usuario ?>)"
-                                                    class="btn btn-danger btn-sm" title="Excluir">
-                                                    <i class="bi bi-trash"></i>
+                                               
+                                                <a href="javascript:mudarTipoUsuario(<?= $usuario->id_usuario ?>, 'admin')"
+                                                    class="btn btn-success btn-sm" title="Tornar Admin">
+                                                    <i class="bi bi-person-up"></i>
                                                 </a>
+                                                
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -112,4 +108,17 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
             </div>
         </div>
     </div>
+
+    <script>
+       
+        function mudarTipoUsuario(id, novoTipo) {
+            const acao = novoTipo === 'admin' ? 'promover' : 'rebaixar';
+            const confirmacao = confirm(`Tem certeza que deseja ${acao} este usuário para ${novoTipo}?`);
+
+            if (confirmacao) {
+                
+                window.location.href = '/ProjetoPet/index.php?action=mudarTipoUsuario&id=' + id + '&tipo=' + novoTipo;
+            }
+        }
+    </script>
 </div>

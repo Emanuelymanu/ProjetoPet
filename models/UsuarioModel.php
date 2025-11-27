@@ -92,4 +92,14 @@ class UsuarioModel
 
         return $consulta->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function mudarTipoUsuario($id, $tipo)
+    {
+        $sql = "UPDATE usuario SET tipo = :tipo WHERE id_usuario = :id";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->bindParam(":id", $id);
+        $consulta->bindParam(":tipo", $tipo);
+
+        return $consulta->execute();
+    }
 }
