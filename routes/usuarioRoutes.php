@@ -3,6 +3,7 @@ session_start();
 require '../controllers/IndexController.php';
 $CadastroControll = new IndexController();
 $validarLogin = new IndexController();
+$controller = new IndexController();
 
 if (isset($_POST['action']) && $_POST['action'] === 'cadastrar') {
 
@@ -25,3 +26,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'login') {
     }
     exit;
 }
+
+
+
+
+
+

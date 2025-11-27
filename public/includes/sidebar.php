@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?page=sair">
+                <a class="nav-link" href="sair.php">
                     <i class="bi bi-door-closed"></i>
                     Sair
                 </a>

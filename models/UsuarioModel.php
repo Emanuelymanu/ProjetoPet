@@ -38,6 +38,25 @@ class UsuarioModel
     }
    
 
+
+    public function listarAdmin(){
+        $sql= "SELECT id_usuario, nome, email FROM usuario WHERE tipo = 'admin' ORDER BY nome";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
+     public function listarCliente(){
+        $sql= "SELECT id_usuario, nome, email FROM usuario WHERE tipo = 'cliente' ORDER BY nome";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
+
+
     /*public function verificarLogin($email, $senha)
     {
         $sql = "select id, nome, email, senha from administrador where email = :email and senha = :senha";
@@ -50,56 +69,7 @@ class UsuarioModel
     }*/
 
 
-    public function listarAdmins()
-    {
-        $sql = "select id_usuario, nome, email from usuario where tipo = 'admin'";
-        $consulta = $this->pdo->prepare($sql);
-        
-        $consulta->execute();
 
-        return $consulta->fetchAll(PDO::FETCH_OBJ);
-    }
-
-    public function listarClientes()
-    {
-        $sql = "select id_usuario, nome, email from usuario where tipo = 'cliente'";
-        $consulta = $this->pdo->prepare($sql);
-       
-        $consulta->execute();
-
-        return $consulta->fetchAll(PDO::FETCH_OBJ);
-    }
-
+  
     
-
-    /* public function novoAdmin($nome, $email, $senha){
-         $sql = "insert into administrador (nome, email, senha) values (:nome, :email, :senha)";
-         $consulta = $this->pdo->prepare($sql);
-         $consulta->bindParam(":nome", $nome);
-         $consulta->bindParam(":email", $email);
-         $consulta->bindParam(":senha", $senha);
-         $consulta->execute();
-
-         return $consulta->fetchAll(PDO::FETCH_OBJ);
-     }*/
-
-    public function removerAdmin($id)
-    {
-        $sql = "delete from usuario where id = :id";
-        $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id", $id);
-        $consulta->execute();
-
-        return $consulta->fetchAll(PDO::FETCH_OBJ);
-    }
-
-    public function mudarTipoUsuario($id, $tipo)
-    {
-        $sql = "UPDATE usuario SET tipo = :tipo WHERE id_usuario = :id";
-        $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id", $id);
-        $consulta->bindParam(":tipo", $tipo);
-
-        return $consulta->execute();
-    }
 }

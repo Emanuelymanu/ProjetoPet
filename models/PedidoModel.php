@@ -1,54 +1,54 @@
 <?php
-
 class PedidoModel
 {
-
     private $pdo;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
-
     }
 
-    public function listarPedidosEnviados()
+    public function listarPedidos($status = null)
     {
-        $sql = "SELECT 
-                ip.id_item, 
-                ip.quantidade,
-                ip.preco_unitario,
-                p.nome_produto,
-                p.imagem
-            FROM item_pedido ip
-            JOIN produto p ON ip.id_produto = p.id_produto
-           WHERE p.status = :status_enviado
-           AND ip.id_pedido = :id_pedido
-            ORDER BY p.data_pedido DESC";
+        $sql = "SELECT p.id_pedido, u.nome AS nome_usuario, p.data_pedido, p.status 
+                FROM pedido p
+                JOIN usuario u ON p.id_usuario = u.id_usuario";
+        
+        $bindParams = [];
+
+        if (!empty($status)) {
+            $sql .= " WHERE p.status = :status";
+            $bindParams[':status'] = $status;
+        }
+        
+        $sql .= " ORDER BY p.data_pedido DESC";
+
         $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id_pedido", $_SESSION['id_pedido']);
+        
+        foreach ($bindParams as $key => $value) {
+            $consulta->bindValue($key, $value);
+        }
+        
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_OBJ);
-
     }
 
-    public function listarPedidosEntregues()
+    public function listarItensPorPedido($id_pedido) 
     {
         $sql = "SELECT 
-                ip.id_item, 
-                ip.quantidade,
-                ip.preco_unitario,
-                p.nome_produto,
-                p.imagem
-            FROM item_pedido ip
-            JOIN produto p ON ip.id_produto = p.id_produto
-           WHERE p.status = :status_entregue
-           AND ip.id_pedido = :id_pedido
-            ORDER BY p.data_pedido DESC";
+                    ip.id_item, 
+                    ip.quantidade,
+                    ip.preco_unitario,
+                    p.nome_produto,
+                    p.imagem
+                FROM item_pedido ip
+                JOIN produto p ON ip.id_produto = p.id_produto
+                WHERE ip.id_pedido = :id_pedido"; 
+                
         $consulta = $this->pdo->prepare($sql);
-        $consulta->bindParam(":id_pedido", $_SESSION['id_pedido']);
+        $consulta->bindParam(":id_pedido", $id_pedido); 
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_OBJ);
-
     }
 
     public function atualizarStatusPedido($id_pedido, $novo_status)
@@ -59,52 +59,5 @@ class PedidoModel
         $consulta->bindParam(":id_pedido", $id_pedido);
         return $consulta->execute();
     }
-
-    
-public function listarItensPorPedido($id_pedido) 
-{
-    $sql = "SELECT 
-                ip.id_item, 
-                ip.quantidade,
-                ip.preco_unitario,
-                p.nome_produto,
-                p.imagem
-            FROM item_pedido ip
-            JOIN produto p ON ip.id_produto = p.id_produto
-            WHERE ip.id_pedido = :id_pedido"; 
-            
-    $consulta = $this->pdo->prepare($sql);
-    $consulta->bindParam(":id_pedido", $id_pedido); 
-    $consulta->execute();
-    return $consulta->fetchAll(PDO::FETCH_OBJ);
 }
-   
-
-public function listarPedidos($status = null)
-{
-    $sql = "SELECT p.id_pedido, u.nome AS nome_usuario, p.data_pedido, p.status 
-            FROM pedido p
-            JOIN usuario u ON p.id_usuario = u.id_usuario";
-    
-    
-    $bindParams = [];
-
-  
-    if (!empty($status)) {
-        $sql .= " WHERE p.status = :status";
-        $bindParams[':status'] = $status;
-    }
-    
-    $sql .= " ORDER BY p.data_pedido DESC";
-
-    $consulta = $this->pdo->prepare($sql);
-    
-    
-    foreach ($bindParams as $key => $value) {
-        $consulta->bindParam($key, $bindParams[$key]);
-    }
-    
-    $consulta->execute();
-    return $consulta->fetchAll(PDO::FETCH_OBJ);
-}
-}
+?>

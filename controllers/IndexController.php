@@ -98,16 +98,11 @@ class IndexController
         }
     }
 
-    public function listarUsuariosPorTipo($tipo)
-    {
-        if ($tipo === 'admin') {
-            return $this->usuario->listarAdmins();
-        } elseif ($tipo === 'cliente') {
-            return $this->usuario->listarClientes();
-        } else {
-            return [];
-        }
-    }
+   public function Admins(){
+    return $this->usuario->listarAdmin();
+   }
 
-
+   public function Clientes(){
+    return $this->usuario->listarCliente();
+   }
 }

@@ -5,8 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require __DIR__ . "/../../controllers/IndexController.php";
 $indexController = new IndexController();
-$usuariosAdmin = $indexController->listarUsuariosPorTipo('admin');
-$usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
+$usuariosAdmin = $indexController->Admins();
+$usuariosCliente = $indexController->Clientes();
 ?>
 
 
@@ -19,7 +19,7 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
         <div class="col-md-11">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white text-center py-4">
-                    <i class="bi bi-person-badge" style="font-size: 4rem;"></i>
+                    <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
                     <h2 class="mt-3 mb-0">Gerenciamento de Usuários</h2>
                 </div>
 
@@ -29,7 +29,7 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
 
                     <hr class="my-5">
 
-                    <h3 class="mb-4 pb-2 text"><i class="bi bi-person-circle"></i> Administradores Cadastrados</h3>
+                    <h3 class="mb-4 pb-2 text"><i class="bi bi-person-badge"></i> Administradores Cadastrados</h3>
                     <div class="table-responsive mb-5">
                         <table class="table table-striped table-hover table-bordered">
                             <thead class="bg-danger text-white">
@@ -49,7 +49,7 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
                                                 
-                                                <a href="javascript:mudarTipoUsuario(<?= $usuario->id_usuario ?>, 'cliente')"
+                                                <a href="javascript:void(0)"
                                                     class="btn btn-warning btn-sm" title="Tornar Cliente">
                                                     <i class="bi bi-person-down"></i>
                                                 </a>
@@ -88,7 +88,7 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
                                                
-                                                <a href="javascript:mudarTipoUsuario(<?= $usuario->id_usuario ?>, 'admin')"
+                                                <a href="javascript:void(0)"
                                                     class="btn btn-success btn-sm" title="Tornar Admin">
                                                     <i class="bi bi-person-up"></i>
                                                 </a>
@@ -109,16 +109,37 @@ $usuariosCliente = $indexController->listarUsuariosPorTipo('cliente');
         </div>
     </div>
 
-    <script>
-       
-        function mudarTipoUsuario(id, novoTipo) {
-            const acao = novoTipo === 'admin' ? 'promover' : 'rebaixar';
-            const confirmacao = confirm(`Tem certeza que deseja ${acao} este usuário para ${novoTipo}?`);
-
-            if (confirmacao) {
-                
-                window.location.href = '/ProjetoPet/index.php?action=mudarTipoUsuario&id=' + id + '&tipo=' + novoTipo;
-            }
-        }
-    </script>
+   
 </div>
+<script>
+function mudarTipoUsuario(id_usuario, novoTipo) {
+    const tipoTexto = novoTipo === 'admin' ? 'administrador' : 'cliente';
+    
+    if (!confirm(`Tem certeza que deseja tornar este usuário ${tipoTexto}?`)) {
+        return;
+    }
+
+    $.ajax({
+        url: '../routes/usuarioRoutes.php',
+        type: 'POST',
+        data: {
+            action: 'mudar_tipo',
+            id_usuario: id_usuario,
+            novo_tipo: novoTipo
+        },
+        success: function(response) {
+            const data = JSON.parse(response);
+            
+            if (data.success) {
+                alert(data.message);
+                location.reload(); // Recarrega a página para atualizar a lista
+            } else {
+                alert('Erro: ' + data.message);
+            }
+        },
+        error: function() {
+            alert('Erro ao comunicar com o servidor');
+        }
+    });
+}
+</script>
