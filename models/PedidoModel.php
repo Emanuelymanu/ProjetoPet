@@ -59,4 +59,52 @@ class PedidoModel
         $consulta->bindParam(":id_pedido", $id_pedido);
         return $consulta->execute();
     }
+
+    
+public function listarItensPorPedido($id_pedido) 
+{
+    $sql = "SELECT 
+                ip.id_item, 
+                ip.quantidade,
+                ip.preco_unitario,
+                p.nome_produto,
+                p.imagem
+            FROM item_pedido ip
+            JOIN produto p ON ip.id_produto = p.id_produto
+            WHERE ip.id_pedido = :id_pedido"; 
+            
+    $consulta = $this->pdo->prepare($sql);
+    $consulta->bindParam(":id_pedido", $id_pedido); 
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_OBJ);
+}
+   
+
+public function listarPedidos($status = null)
+{
+    $sql = "SELECT p.id_pedido, u.nome AS nome_usuario, p.data_pedido, p.status 
+            FROM pedido p
+            JOIN usuario u ON p.id_usuario = u.id_usuario";
+    
+    
+    $bindParams = [];
+
+  
+    if (!empty($status)) {
+        $sql .= " WHERE p.status = :status";
+        $bindParams[':status'] = $status;
+    }
+    
+    $sql .= " ORDER BY p.data_pedido DESC";
+
+    $consulta = $this->pdo->prepare($sql);
+    
+    
+    foreach ($bindParams as $key => $value) {
+        $consulta->bindParam($key, $bindParams[$key]);
+    }
+    
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_OBJ);
+}
 }

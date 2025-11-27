@@ -14,4 +14,10 @@ class PedidoController
 
         $this->pedidoModel = new PedidoModel($pdo);
     }
+
+    public function listarPedidos($status = null)
+{
+   
+    return $this->pedidoModel->listarPedidos($status);
+}
 }

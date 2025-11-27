@@ -27,13 +27,13 @@ $dadosProdutos = $produtoController->listar();
                     <h3 class="mb-4 border-bottom pb-2">Cadastro de Produto</h3>
                     <form action="../routes/produtoRoutes.php" method="POST" data-parsley-validate
                         enctype="multipart/form-data" name="formproduto" id="form-produto">
-                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_produto" id="id_produto">
                         <input type="hidden" name="action" value="salvar">
 
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="nome" class="form-label fw-bold">Nome do Produto</label>
-                                <input type="text" name="nome" id="nome" class="form-control" required
+                                <input type="text" name="nome_produto" id="nome_produto" class="form-control" required
                                     data-parsley-required-message="Preencha o nome do produto.">
                             </div>
                             <div class="col-md-4 mb-3">
@@ -70,7 +70,7 @@ $dadosProdutos = $produtoController->listar();
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="valor" class="form-label fw-bold">Valor</label>
-                                <input type="text" name="valor" id="preco" class="form-control" required
+                                <input type="text" name="preco" id="preco" class="form-control" required
                                     data-parsley-required-message="Preencha o valor do produto.">
                             </div>
                         </div>
@@ -167,11 +167,11 @@ $dadosProdutos = $produtoController->listar();
 
     function editarProduto(produto) {
 
-        document.getElementById('id').value = produto.id_produto;
-        document.getElementById('nome').value = produto.nome_produto;
+        document.getElementById('id_produto').value = produto.id_produto;
+        document.getElementById('nome_produto').value = produto.nome_produto;
         document.getElementById('id_categoria').value = produto.id_categoria;
         $('#descricao').summernote('code', produto.descricao);
-        $('#preco').val(produto.valor).maskMoney('mask');
+        $('#preco').val(produto.preco).maskMoney('mask');
         document.getElementById('destaque').value = produto.destaque;
         document.getElementById('imagem_atual').value = produto.imagem;
 
@@ -180,7 +180,7 @@ $dadosProdutos = $produtoController->listar();
     }
 
 
-    function excluirProduto(id) {
+    function excluirProduto(id_produto) {
         Swal.fire({
             title: "Deseja realmente excluir este produto?",
             text: "Esta ação não pode ser desfeita e removerá o produto permanentemente.",
@@ -193,7 +193,7 @@ $dadosProdutos = $produtoController->listar();
         }).then((result) => {
             if (result.isConfirmed) {
 
-                location.href = `../routes/produtoRoutes.php?action=excluir&id=${id}`;
+                location.href = `../routes/produtoRoutes.php?action=excluir&id=${id_produto}`;
             }
         });
     }
