@@ -1,5 +1,6 @@
 <?php
-require_once "../controllers/PedidoController.php";
+
+require_once __DIR__ . "/../controllers/PedidoController.php";
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -15,7 +16,7 @@ switch ($action) {
         $_SESSION['status_filtro'] = $_POST['status'] ?? '';
         header('Location: ../views/pedidos/index.php');
         exit;
-        
+
     case 'detalhes':
         $id_pedido = $_GET['id_pedido'] ?? null;
         if ($id_pedido) {
@@ -25,11 +26,11 @@ switch ($action) {
             echo json_encode(['success' => false, 'message' => 'ID do pedido não informado']);
         }
         exit;
-        
+
     case 'atualizar_status':
         $id_pedido = $_POST['id_pedido'] ?? null;
         $novo_status = $_POST['novo_status'] ?? null;
-        
+
         if ($id_pedido && $novo_status) {
             $resultado = $pedidoController->atualizarStatus($id_pedido, $novo_status);
             if ($resultado) {
@@ -41,9 +42,9 @@ switch ($action) {
             echo json_encode(['success' => false, 'message' => 'Dados incompletos']);
         }
         exit;
-        
+
     default:
-      
+
         header('Location: ../views/pedidos/index.php');
         exit;
 }

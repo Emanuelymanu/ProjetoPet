@@ -2,12 +2,24 @@
 
 class EstoqueModel
 {
-
     private $pdo;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+    }
+
+    public function editarMovimentacao($dados)
+    {
+        $sql = "UPDATE estoque SET id_produto = :id_produto, tipo_movimentacao = :tipo_movimentacao, quantidade = :quantidade, data_movimentacao = :data_movimentacao, observacao = :observacao WHERE id_movimentacao = :id_movimentacao";
+        $consulta = $this->pdo->prepare($sql);
+        $consulta->bindParam(":id_produto", $dados["id_produto"]);
+        $consulta->bindParam(":tipo_movimentacao", $dados["tipo_movimentacao"]);
+        $consulta->bindParam(":quantidade", $dados["quantidade"]);
+        $consulta->bindParam(":data_movimentacao", $dados["data_movimentacao"]);
+        $consulta->bindParam(":observacao", $dados["observacao"]);
+        $consulta->bindParam(":id_movimentacao", $dados["id_movimentacao"]);
+        return $consulta->execute();
     }
 
     public function adicionarProduto($dados)
@@ -20,10 +32,7 @@ class EstoqueModel
         $consulta->bindParam(":quantidade", $dados["quantidade"]);
         $consulta->bindParam(":data_movimentacao", $dados["data_movimentacao"]);
         $consulta->bindParam(":observacao", $dados["observacao"]);
-
-
         return $consulta->execute();
-
     }
 
     public function atualizarQuantidade($id_movimentacao, $novaQuantidade)
@@ -69,6 +78,12 @@ class EstoqueModel
             error_log("Erro de PDO ao dar baixa no estoque: " . $e->getMessage());
             return false;
         }
+    }
 
+    public function buscarProdutos()
+    {
+        $sql = "SELECT id_produto, nome_produto, preco, quantidade_estoque FROM produto";
+        $consulta = $this->pdo->query($sql);
+        return $consulta->fetchAll(PDO::FETCH_OBJ);
     }
 }

@@ -71,7 +71,7 @@ $dadosProdutos = $produtoController->listar();
                             <div class="col-md-6 mb-3">
                                 <label for="valor" class="form-label fw-bold">Valor</label>
                                 <input type="text" name="preco" id="preco" class="form-control" required
-                                    data-parsley-required-message="Preencha o valor do produto.">
+                                    placeholder="R$ 0,00" data-parsley-required-message="Preencha o valor do produto.">
                             </div>
                         </div>
 
@@ -85,11 +85,11 @@ $dadosProdutos = $produtoController->listar();
                                     <option value="N">Não</option>
                                 </select>
                             </div>
-                            
+
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            
+
                             <button type="button" class="btn btn-outline-secondary" onclick="limparFormulario()">
                                 <i class="bi bi-plus-circle"></i> Novo Cadastro
                             </button>
@@ -142,7 +142,8 @@ $dadosProdutos = $produtoController->listar();
                                                     onclick='editarProduto(<?= json_encode($produto, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <a href="javascript:void(0)" onclick="excluirProduto(<?= $produto->id_produto ?>)"
+                                                <a href="javascript:void(0)"
+                                                    onclick="excluirProduto(<?= $produto->id_produto ?>)"
                                                     class="btn btn-danger btn-sm" title="Excluir">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
@@ -171,13 +172,15 @@ $dadosProdutos = $produtoController->listar();
         document.getElementById('nome_produto').value = produto.nome_produto;
         document.getElementById('id_categoria').value = produto.id_categoria;
         $('#descricao').summernote('code', produto.descricao);
-        $('#preco').val(produto.preco).maskMoney('mask');
+        $('#preco').val(produto.preco);
         document.getElementById('destaque').value = produto.destaque;
         document.getElementById('imagem_atual').value = produto.imagem;
 
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+
 
 
     function excluirProduto(id_produto) {
@@ -210,12 +213,13 @@ $dadosProdutos = $produtoController->listar();
             ]
         });
 
-        $('#preco').maskMoney({
+   /*     $('#preco').maskMoney({
             prefix: 'R$ ',
             thousands: '.',
             decimal: ',',
-            allowZero: true
-        });
+            allowZero: true,
+            allowNegative: false
+        });*/
     });
 
     function limparFormulario() {

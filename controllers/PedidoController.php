@@ -1,5 +1,6 @@
 <?php
-require "../config/Conexao.php";
+
+require "./../config/Conexao.php";
 require_once "../models/PedidoModel.php";
 
 class PedidoController
@@ -26,13 +27,13 @@ class PedidoController
     public function filtrarPedidos()
     {
         $status = $_POST['status'] ?? null;
-        
+
         if (empty($status)) {
             $pedidos = $this->listarPedidos();
         } else {
             $pedidos = $this->listarPedidos($status);
         }
-        
+
         return $pedidos;
     }
 
