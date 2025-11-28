@@ -37,7 +37,7 @@ $usuariosCliente = $indexController->Clientes();
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>E-mail</th>
-                                    <th class="text-center">Ações</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,10 +49,7 @@ $usuariosCliente = $indexController->Clientes();
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
                                                 
-                                                <a href="javascript:void(0)"
-                                                    class="btn btn-warning btn-sm" title="Tornar Cliente">
-                                                    <i class="bi bi-person-down"></i>
-                                                </a>
+                                                
                                                 
                                             </td>
                                         </tr>
@@ -76,7 +73,7 @@ $usuariosCliente = $indexController->Clientes();
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>E-mail</th>
-                                    <th class="text-center">Ações</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,10 +85,7 @@ $usuariosCliente = $indexController->Clientes();
                                             <td><?= htmlspecialchars($usuario->email) ?></td>
                                             <td class="text-center">
                                                
-                                                <a href="javascript:void(0)"
-                                                    class="btn btn-success btn-sm" title="Tornar Admin">
-                                                    <i class="bi bi-person-up"></i>
-                                                </a>
+                                                
                                                 
                                             </td>
                                         </tr>
